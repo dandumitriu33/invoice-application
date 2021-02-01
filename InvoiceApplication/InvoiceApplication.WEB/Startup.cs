@@ -1,3 +1,4 @@
+using InvoiceApplication.CORE.Interfaces;
 using InvoiceApplication.INFRASTRUCTURE.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,7 @@ namespace InvoiceApplication.WEB
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
 
+            services.AddScoped<IAsyncRepository, EFRepository>();
             services.AddControllersWithViews();
         }
 
