@@ -30,5 +30,16 @@ namespace InvoiceApplication.WEB.Controllers
         {
             return View("AddInvoice");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddInvoice(Factura invoice)
+        {
+            if (ModelState.IsValid)
+            {
+                await _repository.AddInvoice(invoice);
+                return RedirectToAction("AllInvoices", "Invoice");
+            }
+            return View("AddInvoice");
+        }
     }
 }

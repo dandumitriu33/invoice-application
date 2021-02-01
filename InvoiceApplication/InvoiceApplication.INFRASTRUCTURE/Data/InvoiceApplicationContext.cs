@@ -19,6 +19,11 @@ namespace InvoiceApplication.INFRASTRUCTURE.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Factura>().HasKey(f => new { f.IdFactura, f.IdLocatie });
+            modelBuilder.Entity<Factura>(f =>
+            {
+                f.HasKey(x => x.IdFactura);
+                f.Property(x => x.IdFactura).ValueGeneratedOnAdd();
+            });
         }
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvoiceApplication.INFRASTRUCTURE.Migrations
 {
     [DbContext(typeof(InvoiceApplicationContext))]
-    [Migration("20210201161334_InitialMigration")]
+    [Migration("20210201180017_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,13 +55,15 @@ namespace InvoiceApplication.INFRASTRUCTURE.Migrations
             modelBuilder.Entity("InvoiceApplication.CORE.Entities.Factura", b =>
                 {
                     b.Property<int>("IdFactura")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdLocatie")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DataFactura")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("IdLocatie")
+                        .HasColumnType("int");
 
                     b.Property<string>("NumarFactura")
                         .HasColumnType("nvarchar(50)")
@@ -71,7 +73,7 @@ namespace InvoiceApplication.INFRASTRUCTURE.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.HasKey("IdFactura", "IdLocatie");
+                    b.HasKey("IdFactura");
 
                     b.ToTable("Facturi");
                 });
