@@ -1,0 +1,12 @@
+﻿@model  List<Factura>
+
+@{ 
+    ViewData["Title"] = "All Invoices";
+}
+
+<h4>All Invoices</h4>
+
+@foreach (var factura in Model)
+{
+    <p>@factura.IdFactura - @factura.NumarFactura</p>
+}
