@@ -8,10 +8,8 @@ namespace InvoiceApplication.CORE.Entities
 {
     public class Factura
     {
-        [Key]
         [Column(Order = 1)]
         public int IdFactura { get; set; }
-        [Key]
         [Column(Order = 2)]
         public int IdLocatie { get; set; }
         [MaxLength(50)]
