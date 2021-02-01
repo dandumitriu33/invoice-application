@@ -24,5 +24,11 @@ namespace InvoiceApplication.WEB.Controllers
             List<Factura> allInvoices = await _repository.GetAllInvoices();
             return View("AllInvoices", allInvoices);
         }
+
+        [HttpGet]
+        public IActionResult AddInvoice()
+        {
+            return View("AddInvoice");
+        }
     }
 }
