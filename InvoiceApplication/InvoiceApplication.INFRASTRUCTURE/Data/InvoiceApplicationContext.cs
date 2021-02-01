@@ -25,5 +25,7 @@ namespace InvoiceApplication.INFRASTRUCTURE.Data
                 f.Property(x => x.IdFactura).ValueGeneratedOnAdd();
             });
         }
+
+
     }
 }

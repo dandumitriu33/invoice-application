@@ -12,16 +12,19 @@ namespace InvoiceApplication.WEB.Controllers
     public class InvoiceController : Controller
     {
         private readonly IAsyncRepository _repository;
+        private readonly ISQLDeliveryService _deliveryService;
 
-        public InvoiceController(IAsyncRepository repository)
+        public InvoiceController(IAsyncRepository repository,
+                                 ISQLDeliveryService deliveryService)
         {
             _repository = repository;
+            _deliveryService = deliveryService;
         }
 
         [HttpGet]
         public async Task<IActionResult> AllInvoices()
         {
-            List<Factura> allInvoices = await _repository.GetAllInvoices();
+            List<Factura> allInvoices = await _deliveryService.GetAllInvoices();
             return View("AllInvoices", allInvoices);
         }
 
