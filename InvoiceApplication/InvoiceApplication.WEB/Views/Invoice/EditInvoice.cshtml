@@ -4,7 +4,150 @@
     ViewData["Title"] = "Edit Invoice";
 }
 
-<h4>Invoice</h4>
+
+<div class="container">
+    <div class="row border">
+        <div class="col-4 mt-1">
+            <h6>Furnizor: S.C. Companie Furnizoare S.R.L.</h6>
+            <h6>CUI: 12345678</h6>
+            <h6>Reg. Com.: J12/1023/2019</h6>
+            <h6>Adresa: Cireselor 22, Cluj-Napoca, Cluj</h6>
+            <h6>Cont: RO37TREZ1234000XXX123401</h6>
+            <h6>Banca: Trezoreria Cluj-Napoca</h6>
+            <h6>Capital Social: 4000 </h6>
+        </div>
+        <div class="col-4 mt-1">
+            <h2 class="text-center">FACTURA</h2>
+            <h6>Seria: </h6>
+            <h6>Numar: @Model.NumarFactura</h6>
+            <h6>Data: @Model.DataFactura</h6>
+            <h6>Data scadenta: 03.03.2021</h6>
+            <h6>Aviz: </h6>
+        </div>
+        <div class="col-4 mt-1">
+            <h6>Client: @Model.NumeClient</h6>
+            <h6>CUI: 99345678</h6>
+            <h6>Reg. Com.: J12/1044/2019</h6>
+            <h6>Adresa: Merelor 28, Cluj-Napoca, Cluj</h6>
+            <h6>Cont: RO37TREZ1234999XXX123499</h6>
+            <h6>Banca: Trezoreria Cluj-Napoca</h6>
+            <h6>Telefon: 123 1234 1234 </h6>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-1 border text-center">
+            <h6>NR.</h6>
+        </div>
+        <div class="col-5 border text-center">
+            <h6>PRODUSE/SERVICII</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>U.M.</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>CANT.</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>PRET</h6>
+            <h6>(fara TVA)</h6>
+            <h6>RON</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>VALOARE</h6>
+            <h6>RON</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>TVA</h6>
+            <h6>%</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>VALOARE</h6>
+            <h6>TVA</h6>
+            <h6>RON</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1 border text-center">
+            <h6>0</h6>
+        </div>
+        <div class="col-5 border text-center">
+            <h6>1</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>2</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>3</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>4</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>5</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>6</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>7</h6>
+        </div>
+    </div>
+
+    @*foreach*@
+
+    <div class="row">
+        <div class="col-1 border text-center">
+        </div>
+        <div class="col-5 border text-center">
+            <button class="btn btn-outline-primary btn-sm m-1"> + </button>
+        </div>
+        <div class="col-1 border text-center">
+        </div>
+        <div class="col-1 border text-center">
+        </div>
+        <div class="col-1 border text-center">
+        </div>
+        <div class="col-1 border text-center">
+        </div>
+        <div class="col-1 border text-center">
+        </div>
+        <div class="col-1 border text-center">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 border">
+            <p class="m-0 font-weight-bold">OBSERVATII:</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-7 border">
+            <p class="m-0 "><span class="font-weight-bold">DELEGAT:</span> Ion Ionescu</p>
+            <p class="m-0"><span class="font-weight-bold">CI:</span> AB 123456</p>
+            <p class="m-0"><span class="font-weight-bold">EMIS DE:</span> SPCLEP Bucuresti</p>
+            <p class="m-0"><span class="font-weight-bold">MIJLOC DE TRANSPORT:</span> B 01 ABC</p>
+            <p class="m-0"><span class="font-weight-bold">DATA:</span> 02.02.2021</p>
+        </div>        
+        <div class="col-2 border">
+            <p class="text-right">SUBTOTAL:</p>
+            <p class="text-right">ACCIZE:</p>
+            <p class="text-right">TOTAL DE PLATA:</p>
+        </div>
+        <div class="col-1 border">
+            <p class="text-right">100.00</p>
+            <p class="text-right">0.00</p>
+            <p class="text-right"></p>
+        </div>
+        <div class="col-2 border">
+            <p class="text-right">19.00</p>
+            <p class="text-right">0.00</p>
+            <p class="text-right font-weight-bold">119.00</p>
+        </div>
+    </div>
+</div>
+
+<hr />
+
 
 <div class="container">
     <div class="row">
