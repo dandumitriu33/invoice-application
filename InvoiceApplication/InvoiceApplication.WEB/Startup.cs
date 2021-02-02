@@ -31,7 +31,6 @@ namespace InvoiceApplication.WEB
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
 
-            services.AddScoped<ISQLDeliveryService, DeliveryService>();
             services.AddScoped<IAsyncRepository, EFRepository>();
             services.AddControllersWithViews();
         }
