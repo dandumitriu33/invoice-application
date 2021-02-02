@@ -1,3 +1,4 @@
+using AutoMapper;
 using InvoiceApplication.CORE.Interfaces;
 using InvoiceApplication.INFRASTRUCTURE.Data;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace InvoiceApplication.API
@@ -34,6 +36,7 @@ namespace InvoiceApplication.API
             });
 
             services.AddScoped<IAsyncRepository, EFRepository>();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddControllers();
         }
 

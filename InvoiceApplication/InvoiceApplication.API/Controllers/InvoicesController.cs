@@ -1,4 +1,6 @@
-﻿using InvoiceApplication.CORE.Entities;
+﻿using AutoMapper;
+using InvoiceApplication.API.Models;
+using InvoiceApplication.CORE.Entities;
 using InvoiceApplication.CORE.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +17,13 @@ namespace InvoiceApplication.API.Controllers
     public class InvoicesController : ControllerBase
     {
         private readonly IAsyncRepository _repository;
+        private readonly IMapper _mapper;
 
-        public InvoicesController(IAsyncRepository repository)
+        public InvoicesController(IAsyncRepository repository,
+                                  IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         // GET: api/<InvoicesController>/get-all-invoices
@@ -29,7 +34,8 @@ namespace InvoiceApplication.API.Controllers
             try
             {
                 List<Factura> invoicesFromDb = await _repository.GetAllInvoices();
-                var payload = JsonSerializer.Serialize(invoicesFromDb);
+                List<FacturaDTO> invoices = _mapper.Map<List<Factura>, List<FacturaDTO>>(invoicesFromDb);
+                var payload = JsonSerializer.Serialize(invoices);
                 return Ok(payload);
             }
             catch (Exception)
