@@ -1,4 +1,4 @@
-﻿
+﻿import { addNewDetails } from "./utils.js";
 
 $("#addDetailsButton").click(function () {
     console.log("add details clicked");
@@ -61,6 +61,16 @@ function populateAddDetailsForm() {
     $("#addDetailsButtonRow").remove();
     $("#saveDetails").click(function () {
         console.log("Save Details Clicked");
+        
+        let idFactura = $("#idFactura").text();
+        let idLocatie = $("#idLocatie").text();
+        let numeProdus = $("#newDetailNumeProdus").val();
+        let cantitate = $("#newDetailCantitate").val();
+        let pretUnitar = $("#newDetailPretUnitar").val();
+        let valoare = $("#newDetailValoare").val();
+        addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUnitar, valoare);
+
+        
     })
     $("#cancelSaveDetails").click(function () {
         console.log("Cancel Save Details Clicked");

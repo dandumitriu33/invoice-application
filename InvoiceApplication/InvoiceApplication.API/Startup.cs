@@ -30,6 +30,13 @@ namespace InvoiceApplication.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder => builder
+                                    .WithOrigins("*") // temporary for testing purposes - can't predict other ports on other computers
+                                    .AllowAnyMethod()
+                                    .AllowAnyHeader());
+            });
             services.AddDbContext<InvoiceApplicationContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
@@ -51,6 +58,7 @@ namespace InvoiceApplication.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 
