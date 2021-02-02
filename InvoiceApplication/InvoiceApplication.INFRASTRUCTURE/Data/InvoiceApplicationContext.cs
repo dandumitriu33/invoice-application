@@ -24,6 +24,7 @@ namespace InvoiceApplication.INFRASTRUCTURE.Data
                 f.HasKey(x => x.IdFactura);
                 f.Property(x => x.IdFactura).ValueGeneratedOnAdd();
             });
+            modelBuilder.Entity<DetaliiFactura>().HasKey(df => new { df.IdDetaliiFactura, df.IdLocatie });
         }
 
 

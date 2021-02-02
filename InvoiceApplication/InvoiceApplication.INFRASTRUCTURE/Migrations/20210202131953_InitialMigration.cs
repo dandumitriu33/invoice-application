@@ -11,8 +11,7 @@ namespace InvoiceApplication.INFRASTRUCTURE.Migrations
                 name: "DetaliiFacturi",
                 columns: table => new
                 {
-                    IdDetaliiFactura = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdDetaliiFactura = table.Column<int>(nullable: false),
                     IdLocatie = table.Column<int>(nullable: false),
                     IdFactura = table.Column<int>(nullable: false),
                     NumeProdus = table.Column<string>(maxLength: 200, nullable: true),
@@ -22,7 +21,7 @@ namespace InvoiceApplication.INFRASTRUCTURE.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DetaliiFacturi", x => x.IdDetaliiFactura);
+                    table.PrimaryKey("PK_DetaliiFacturi", x => new { x.IdDetaliiFactura, x.IdLocatie });
                 });
 
             migrationBuilder.CreateTable(
@@ -38,7 +37,7 @@ namespace InvoiceApplication.INFRASTRUCTURE.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Facturi", x => x.IdFactura);
+                    table.PrimaryKey("PK_Facturi", x => new { x.IdFactura, x.IdLocatie });
                 });
         }
 

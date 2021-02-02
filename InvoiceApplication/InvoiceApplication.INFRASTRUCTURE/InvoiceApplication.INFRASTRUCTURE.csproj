@@ -11,6 +11,8 @@
     <Compile Remove="Migrations\20210201163517_AddCantitateDecimal182.Designer.cs" />
     <Compile Remove="Migrations\20210201164125_AddForeignKeyIdFactura.cs" />
     <Compile Remove="Migrations\20210201164125_AddForeignKeyIdFactura.Designer.cs" />
+    <Compile Remove="Migrations\20210202131713_SetClusteredKeyDetaliiFactura.cs" />
+    <Compile Remove="Migrations\20210202131713_SetClusteredKeyDetaliiFactura.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +22,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InvoiceApplication.CORE\InvoiceApplication.CORE.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

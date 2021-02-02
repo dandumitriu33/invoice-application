@@ -8,7 +8,6 @@ namespace InvoiceApplication.CORE.Entities
 {
     public class DetaliiFactura
     {
-        [Key]
         public int IdDetaliiFactura { get; set; }
         public int IdLocatie { get; set; }
         public int IdFactura { get; set; }
