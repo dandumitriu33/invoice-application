@@ -1,4 +1,6 @@
-﻿using InvoiceApplication.WEB.Models;
+﻿using InvoiceApplication.CORE.Entities;
+using InvoiceApplication.CORE.Interfaces;
+using InvoiceApplication.WEB.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,10 +14,13 @@ namespace InvoiceApplication.WEB.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IAsyncRepository _repository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,
+                              IAsyncRepository repository)
         {
             _logger = logger;
+            _repository = repository;
         }
 
         public IActionResult Index()
@@ -26,6 +31,17 @@ namespace InvoiceApplication.WEB.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SeedData()
+        {
+            List<Factura> firstInvoices = await _repository.GetFirstInvoices();
+            if (firstInvoices.Count <= 0)
+            {
+                await _repository.SeedDbData();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

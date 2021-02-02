@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace InvoiceApplication.CORE.Entities
+namespace InvoiceApplication.API.Models
 {
-    public class DetaliiFactura
+    public class DetaliiFacturaDTO
     {
         public int IdDetaliiFactura { get; set; }
         public int IdLocatie { get; set; }
         public int IdFactura { get; set; }
         [MaxLength(200)]
         public string NumeProdus { get; set; }
-        [Column(TypeName = "decimal(18,2)")]
         public decimal Cantitate { get; set; }
-        [Column(TypeName = "money")]
         public decimal PretUnitar { get; set; }
-        [Column(TypeName = "money")]
         public decimal Valoare { get; set; }
     }
 }

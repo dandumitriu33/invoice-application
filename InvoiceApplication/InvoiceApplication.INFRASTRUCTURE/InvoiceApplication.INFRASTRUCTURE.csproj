@@ -7,6 +7,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20210201160952_InitialMigration.cs" />
     <Compile Remove="Migrations\20210201160952_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20210201163517_AddCantitateDecimal182.cs" />
+    <Compile Remove="Migrations\20210201163517_AddCantitateDecimal182.Designer.cs" />
+    <Compile Remove="Migrations\20210201164125_AddForeignKeyIdFactura.cs" />
+    <Compile Remove="Migrations\20210201164125_AddForeignKeyIdFactura.Designer.cs" />
+    <Compile Remove="Migrations\20210202131713_SetClusteredKeyDetaliiFactura.cs" />
+    <Compile Remove="Migrations\20210202131713_SetClusteredKeyDetaliiFactura.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

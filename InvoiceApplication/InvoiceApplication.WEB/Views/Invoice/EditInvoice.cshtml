@@ -1,0 +1,256 @@
+﻿@model FacturaViewModel
+
+@{
+    ViewData["Title"] = "Edit Invoice";
+    decimal subtotal = 0;
+    decimal totalTVA = 0;
+    decimal totalDePlata = 0;
+    decimal TVA = 19.0M;
+}
+
+
+<div class="container">
+    <div class="row border">
+        <div class="col-4 mt-1">
+            <h6>Furnizor: S.C. Companie Furnizoare S.R.L.</h6>
+            <h6>CUI: 12345678</h6>
+            <h6>Reg. Com.: J12/1023/2019</h6>
+            <h6>Adresa: <span id="idLocatie">@Model.IdLocatie </span> - Cireselor 22, Cluj-Napoca, Cluj</h6>
+            <h6>Cont: RO37TREZ1234000XXX123401</h6>
+            <h6>Banca: Trezoreria Cluj-Napoca</h6>
+            
+        </div>
+        <div class="col-4 mt-1">
+            <h2 class="text-center">FACTURA</h2>
+            <p hidden id="idFactura">@Model.IdFactura</p>
+            <h6>Seria: </h6>
+            <h6>Numar: @Model.NumarFactura</h6>
+            <h6>Data: @Model.DataFactura</h6>
+            <h6>Data scadenta: 03.03.2021</h6>
+            <h6>Aviz: </h6>
+        </div>
+        <div class="col-4 mt-1">
+            <h6>Client: @Model.NumeClient</h6>
+            <h6>CUI: 99345678</h6>
+            <h6>Reg. Com.: J12/1044/2019</h6>
+            <h6>Adresa: Merelor 28, Cluj-Napoca, Cluj</h6>
+            <h6>Cont: RO37TREZ1234999XXX123499</h6>
+            <h6>Banca: Trezoreria Cluj-Napoca</h6>
+            <h6>Telefon: 123 1234 1234 </h6>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-1 border text-center">
+            <h6>NR.</h6>
+        </div>
+        <div class="col-5 border text-center">
+            <h6>PRODUSE/SERVICII</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>U.M.</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>CANT.</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>PRET</h6>
+            <h6>(fara TVA)</h6>
+            <h6>RON</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>VALOARE</h6>
+            <h6>RON</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>TVA</h6>
+            <h6>%</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>VALOARE</h6>
+            <h6>TVA</h6>
+            <h6>RON</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1 border text-center">
+            <h6>0</h6>
+        </div>
+        <div class="col-5 border text-center">
+            <h6>1</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>2</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>3</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>4</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>5(3x4)</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>6</h6>
+        </div>
+        <div class="col-1 border text-center">
+            <h6>7</h6>
+        </div>
+    </div>
+
+    <div id="detailsContainer">
+        @if (Model.Detalii != null)
+        {
+            @for (int i = 0; i < Model.Detalii.Count; i++)
+            {
+                int invoicePosition = i + 1;
+                decimal valoareTVAProdus = Model.Detalii[i].Valoare * TVA / 100;
+                subtotal += Model.Detalii[i].Valoare;
+                totalTVA += valoareTVAProdus;
+                totalDePlata += Model.Detalii[i].Valoare + valoareTVAProdus;
+                <div class="row">
+                    <div class="col-1 border text-center">
+                        <p>@invoicePosition</p>
+                    </div>
+                    <div class="col-5 border text-center">
+                        <p>@Model.Detalii[i].NumeProdus</p>
+                    </div>
+                    <div class="col-1 border text-center">
+                        <p>buc</p>
+                    </div>
+                    <div class="col-1 border text-center">
+                        <p>@Model.Detalii[i].Cantitate.ToString("0.00")</p>
+                    </div>
+                    <div class="col-1 border text-center">
+                        <p>@Model.Detalii[i].PretUnitar.ToString("0.00")</p>
+                    </div>
+                    <div class="col-1 border text-center">
+                        <p>@Model.Detalii[i].Valoare.ToString("0.00")</p>
+                    </div>
+                    <div class="col-1 border text-center">
+                        <p>@TVA.ToString("0.00")</p>
+                    </div>
+                    <div class="col-1 border text-center">
+                        <p>@valoareTVAProdus.ToString("0.00")</p>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+
+    <div class="row" id="addDetailsButtonRow">
+        <div class="col-1 border text-center">
+        </div>
+        <div class="col-5 border text-center">
+            <button id="addDetailsButton" class="btn btn-outline-primary btn-sm m-1"> + </button>
+        </div>
+        <div class="col-1 border text-center">
+        </div>
+        <div class="col-1 border text-center">
+        </div>
+        <div class="col-1 border text-center">
+        </div>
+        <div class="col-1 border text-center">
+        </div>
+        <div class="col-1 border text-center">
+        </div>
+        <div class="col-1 border text-center">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 border">
+            <p class="m-0 font-weight-bold">OBSERVATII:</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-7 border">
+            <p class="m-0 "><span class="font-weight-bold">DELEGAT:</span> Ion Ionescu</p>
+            <p class="m-0"><span class="font-weight-bold">CI:</span> AB 123456</p>
+            <p class="m-0"><span class="font-weight-bold">EMIS DE:</span> SPCLEP Bucuresti</p>
+            <p class="m-0"><span class="font-weight-bold">MIJLOC DE TRANSPORT:</span> B 01 ABC</p>
+            <p class="m-0"><span class="font-weight-bold">DATA:</span> 02.02.2021</p>
+        </div>
+        <div class="col-2 border">
+            <p class="text-right">SUBTOTAL:</p>
+            <p class="text-right">ACCIZE:</p>
+            <p class="text-right">TOTAL DE PLATA:</p>
+        </div>
+        <div class="col-1 border">
+            <p class="text-right">@subtotal.ToString("0.00")</p>
+            <p class="text-right">0.00</p>
+            <p class="text-right"></p>
+        </div>
+        <div class="col-2 border">
+            <p class="text-right">@totalTVA.ToString("0.00")</p>
+            <p class="text-right">0.00</p>
+            <p class="text-right font-weight-bold">@totalDePlata.ToString("0.00") RON</p>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post" asp-action="EditInvoice" asp-controller="Invoice">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <input type="text"
+                           readonly hidden asp-for="IdFactura" id="IdFactura" class="form-control" value="@Model.IdFactura" />
+                </div>
+                <div class="form-group">
+                    <label for="IdLocatie">Id Locatie</label>
+                    <input type="number"
+                           asp-for="IdLocatie"
+                           id="IdLocatie"
+                           class="form-control"
+                           placeholder="@Model.IdLocatie" />
+                </div>
+                <div class="form-group">
+                    <label for="NumarFactura">Numar Factura</label>
+                    <input type="text"
+                           asp-for="NumarFactura"
+                           id="NumarFactura"
+                           class="form-control"
+                           placeholder="@Model.NumarFactura" />
+                </div>
+                <div class="form-group">
+                    <label for="DataFactura">Data Factura</label>
+                    <input type="date"
+                           asp-for="DataFactura"
+                           id="DataFactura"
+                           class="form-control"
+                           placeholder="@Model.DataFactura" />
+                </div>
+                <div class="form-group">
+                    <label for="NumeClient">Nume Client</label>
+                    <input type="text"
+                           asp-for="NumeClient"
+                           id="NumeClient"
+                           class="form-control"
+                           placeholder="@Model.NumeClient" />
+                </div>
+
+                @if (Model.IdFactura == 0)
+                {
+                    <button id="submitNewInvoice" class="btn btn-primary" asp-action="EditInvoice" asp-controller="Invoice">Add Invoice</button>
+                }
+                else
+                {
+                    <button id="submitNewInvoice" class="btn btn-warning" asp-action="EditInvoice" asp-controller="Invoice">Edit Invoice</button>
+                }
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="module" src="~/js/editInvoice.js"></script>
+    <script type="module" src="~/js/utils.js"></script>
+    @*@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }*@
+}

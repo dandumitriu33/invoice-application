@@ -1,3 +1,5 @@
+using AutoMapper;
+using InvoiceApplication.CORE.Interfaces;
 using InvoiceApplication.INFRASTRUCTURE.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace InvoiceApplication.WEB
@@ -30,6 +33,8 @@ namespace InvoiceApplication.WEB
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
 
+            services.AddScoped<IAsyncRepository, EFRepository>();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddControllersWithViews();
         }
 

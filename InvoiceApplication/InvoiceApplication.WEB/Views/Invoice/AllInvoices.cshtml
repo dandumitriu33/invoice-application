@@ -1,0 +1,32 @@
+﻿@model  List<FacturaViewModel>
+
+@{ 
+    ViewData["Title"] = "All Invoices";
+}
+
+<h4>All Invoices</h4>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id Factura</th>
+            <th scope="col">Id Locatie</th>
+            <th scope="col">Numar Factura</th>
+            <th scope="col">Data Factura</th>
+            <th scope="col">Nume Client</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var factura in Model)
+        {
+            <tr>
+                <th scope="row">@factura.IdFactura</th>
+                <td>@factura.IdLocatie</td>
+                <td><a asp-action="EditInvoice" asp-controller="Invoice" asp-route-invoiceId="@factura.IdFactura">@factura.NumarFactura</a></td>
+                <td>@factura.DataFactura</td>
+                <td>@factura.NumeClient</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

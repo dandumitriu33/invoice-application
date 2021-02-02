@@ -26,13 +26,13 @@ namespace InvoiceApplication.INFRASTRUCTURE.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("IdLocatie")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Cantitate")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("IdFactura")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdLocatie")
                         .HasColumnType("int");
 
                     b.Property<string>("NumeProdus")
@@ -45,7 +45,7 @@ namespace InvoiceApplication.INFRASTRUCTURE.Migrations
                     b.Property<decimal>("Valoare")
                         .HasColumnType("money");
 
-                    b.HasKey("IdDetaliiFactura");
+                    b.HasKey("IdDetaliiFactura", "IdLocatie");
 
                     b.ToTable("DetaliiFacturi");
                 });
@@ -53,7 +53,9 @@ namespace InvoiceApplication.INFRASTRUCTURE.Migrations
             modelBuilder.Entity("InvoiceApplication.CORE.Entities.Factura", b =>
                 {
                     b.Property<int>("IdFactura")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("IdLocatie")
                         .HasColumnType("int");
