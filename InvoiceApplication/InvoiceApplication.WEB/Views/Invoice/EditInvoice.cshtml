@@ -2,6 +2,10 @@
 
 @{
     ViewData["Title"] = "Edit Invoice";
+    decimal subtotal = 0;
+    decimal totalTVA = 0;
+    decimal totalDePlata = 0;
+    decimal TVA = 19.0M;
 }
 
 
@@ -84,7 +88,7 @@
             <h6>4</h6>
         </div>
         <div class="col-1 border text-center">
-            <h6>5</h6>
+            <h6>5(3x4)</h6>
         </div>
         <div class="col-1 border text-center">
             <h6>6</h6>
@@ -94,10 +98,13 @@
         </div>
     </div>
 
-    @*foreach*@
     @for (int i = 0; i < Model.Detalii.Count; i++)
     {
         int invoicePosition = i + 1;
+        decimal valoareTVAProdus = Model.Detalii[i].Valoare * TVA / 100;
+        subtotal += Model.Detalii[i].Valoare;
+        totalTVA += valoareTVAProdus;
+        totalDePlata += Model.Detalii[i].Valoare + valoareTVAProdus;
         <div class="row">
             <div class="col-1 border text-center">
                 <p>@invoicePosition</p>
@@ -109,19 +116,19 @@
                 <p>buc</p>
             </div>
             <div class="col-1 border text-center">
-                <p>@Model.Detalii[i].Cantitate</p>
+                <p>@Model.Detalii[i].Cantitate.ToString("0.00")</p>
             </div>
             <div class="col-1 border text-center">
-                <p>@Model.Detalii[i].PretUnitar</p>
+                <p>@Model.Detalii[i].PretUnitar.ToString("0.00")</p>
             </div>
             <div class="col-1 border text-center">
-                <p>@Model.Detalii[i].Valoare</p>
+                <p>@Model.Detalii[i].Valoare.ToString("0.00")</p>
             </div>
             <div class="col-1 border text-center">
-                <p>19</p>
+                <p>@TVA.ToString("0.00")</p>
             </div>
             <div class="col-1 border text-center">
-                <p>5</p>
+                <p>@valoareTVAProdus.ToString("0.00")</p>
             </div>
         </div>
     }
@@ -164,14 +171,14 @@
             <p class="text-right">TOTAL DE PLATA:</p>
         </div>
         <div class="col-1 border">
-            <p class="text-right">100.00</p>
+            <p class="text-right">@subtotal.ToString("0.00")</p>
             <p class="text-right">0.00</p>
             <p class="text-right"></p>
         </div>
         <div class="col-2 border">
-            <p class="text-right">19.00</p>
+            <p class="text-right">@totalTVA.ToString("0.00")</p>
             <p class="text-right">0.00</p>
-            <p class="text-right font-weight-bold">119.00</p>
+            <p class="text-right font-weight-bold">@totalDePlata.ToString("0.00") RON</p>
         </div>
     </div>
 </div>
