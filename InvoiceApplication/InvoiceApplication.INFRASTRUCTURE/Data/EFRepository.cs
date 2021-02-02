@@ -55,5 +55,10 @@ namespace InvoiceApplication.INFRASTRUCTURE.Data
             await _context.SaveChangesAsync();
             return detaliiFactura;
         }
+
+        public async Task<List<DetaliiFactura>> GetDetailsForInvoice(int invoiceId)
+        {
+            return await _context.DetaliiFacturi.Where(df => df.IdFactura == invoiceId).ToListAsync();
+        }
     }
 }

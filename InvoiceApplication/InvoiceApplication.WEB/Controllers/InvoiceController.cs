@@ -38,6 +38,9 @@ namespace InvoiceApplication.WEB.Controllers
             if (invoiceFromDb != null)
             {
                 FacturaViewModel invoice = _mapper.Map<Factura, FacturaViewModel>(invoiceFromDb);
+                List<DetaliiFactura> detailsFromDb = await _repository.GetDetailsForInvoice(invoice.IdFactura);
+                List<DetaliiFacturaViewModel> detaliiFactura = _mapper.Map<List<DetaliiFactura>, List<DetaliiFacturaViewModel>>(detailsFromDb);
+                invoice.Detalii = detaliiFactura;
                 return View("EditInvoice", invoice);
             }
             FacturaViewModel newInvoice = new FacturaViewModel();

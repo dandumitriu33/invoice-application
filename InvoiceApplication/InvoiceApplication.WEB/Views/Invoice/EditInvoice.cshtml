@@ -95,6 +95,36 @@
     </div>
 
     @*foreach*@
+    @for (int i = 0; i < Model.Detalii.Count; i++)
+    {
+        int invoicePosition = i + 1;
+        <div class="row">
+            <div class="col-1 border text-center">
+                <p>@invoicePosition</p>
+            </div>
+            <div class="col-5 border text-center">
+                <p>@Model.Detalii[i].NumeProdus</p>
+            </div>
+            <div class="col-1 border text-center">
+                <p>buc</p>
+            </div>
+            <div class="col-1 border text-center">
+                <p>@Model.Detalii[i].Cantitate</p>
+            </div>
+            <div class="col-1 border text-center">
+                <p>@Model.Detalii[i].PretUnitar</p>
+            </div>
+            <div class="col-1 border text-center">
+                <p>@Model.Detalii[i].Valoare</p>
+            </div>
+            <div class="col-1 border text-center">
+                <p>19</p>
+            </div>
+            <div class="col-1 border text-center">
+                <p>5</p>
+            </div>
+        </div>
+    }
 
     <div class="row">
         <div class="col-1 border text-center">
@@ -127,7 +157,7 @@
             <p class="m-0"><span class="font-weight-bold">EMIS DE:</span> SPCLEP Bucuresti</p>
             <p class="m-0"><span class="font-weight-bold">MIJLOC DE TRANSPORT:</span> B 01 ABC</p>
             <p class="m-0"><span class="font-weight-bold">DATA:</span> 02.02.2021</p>
-        </div>        
+        </div>
         <div class="col-2 border">
             <p class="text-right">SUBTOTAL:</p>
             <p class="text-right">ACCIZE:</p>
