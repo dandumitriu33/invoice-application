@@ -48,5 +48,12 @@ namespace InvoiceApplication.INFRASTRUCTURE.Data
             await _context.SaveChangesAsync();
             return invoice;
         }
+
+        public async Task<DetaliiFactura> AddDetaliiFactura(DetaliiFactura detaliiFactura)
+        {
+            await _context.DetaliiFacturi.AddAsync(detaliiFactura);
+            await _context.SaveChangesAsync();
+            return detaliiFactura;
+        }
     }
 }

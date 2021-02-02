@@ -12,5 +12,6 @@ namespace InvoiceApplication.CORE.Interfaces
         Task<Factura> AddInvoice(Factura invoice);
         Task<Factura> GetInvoiceById(int invoiceId);
         Task<Factura> EditInvoice(Factura invoice);
+        Task<DetaliiFactura> AddDetaliiFactura(DetaliiFactura detaliiFactura);
     }
 }
