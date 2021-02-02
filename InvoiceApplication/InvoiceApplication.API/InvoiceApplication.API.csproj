@@ -4,5 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\InvoiceApplication.CORE\InvoiceApplication.CORE.csproj" />
+    <ProjectReference Include="..\InvoiceApplication.INFRASTRUCTURE\InvoiceApplication.INFRASTRUCTURE.csproj" />
+  </ItemGroup>
+
 
 </Project>
