@@ -40,7 +40,8 @@ namespace InvoiceApplication.WEB.Controllers
                 FacturaViewModel invoice = _mapper.Map<Factura, FacturaViewModel>(invoiceFromDb);
                 return View("EditInvoice", invoice);
             }
-            return View("AddInvoice");
+            FacturaViewModel newInvoice = new FacturaViewModel();
+            return View("EditInvoice", newInvoice);
             
         }
 

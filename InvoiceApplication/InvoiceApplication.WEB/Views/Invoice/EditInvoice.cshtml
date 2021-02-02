@@ -1,5 +1,9 @@
 ﻿@model FacturaViewModel
 
+@{
+    ViewData["Title"] = "Edit Invoice";
+}
+
 <h4>Invoice</h4>
 
 <div class="container">
@@ -10,38 +14,46 @@
 
                 <div class="form-group">
                     <label for="IdLocatie">Id Locatie</label>
-                    <input type="number" 
-                           asp-for="IdLocatie" 
-                           id="IdLocatie" 
-                           class="form-control" 
-                           placeholder="@Model.IdLocatie"/>
+                    <input type="number"
+                           asp-for="IdLocatie"
+                           id="IdLocatie"
+                           class="form-control"
+                           placeholder="@Model.IdLocatie" />
                 </div>
                 <div class="form-group">
                     <label for="NumarFactura">Numar Factura</label>
                     <input type="text"
                            asp-for="NumarFactura"
                            id="NumarFactura"
-                           class="form-control" 
-                           placeholder="@Model.NumarFactura"/>
+                           class="form-control"
+                           placeholder="@Model.NumarFactura" />
                 </div>
                 <div class="form-group">
                     <label for="DataFactura">Data Factura</label>
                     <input type="date"
                            asp-for="DataFactura"
                            id="DataFactura"
-                           class="form-control" 
-                           placeholder="@Model.DataFactura"/>
+                           class="form-control"
+                           placeholder="@Model.DataFactura" />
                 </div>
                 <div class="form-group">
                     <label for="NumeClient">Nume Client</label>
                     <input type="text"
                            asp-for="NumeClient"
                            id="NumeClient"
-                           class="form-control" 
-                           placeholder="@Model.NumeClient"/>
+                           class="form-control"
+                           placeholder="@Model.NumeClient" />
                 </div>
 
-                <button id="submitNewInvoice" class="btn btn-primary">Submit Invoice</button>
+                @if (Model.IdFactura == 0)
+                {
+                    <button id="submitNewInvoice" class="btn btn-primary">Add Invoice</button>
+                }
+                else
+                {
+                    <button id="submitNewInvoice" class="btn btn-warning">Edit Invoice</button>
+                }
+
             </form>
         </div>
     </div>
