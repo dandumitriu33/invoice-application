@@ -9,6 +9,7 @@ namespace InvoiceApplication.WEB.AutomapperProfiles
         public InvoiceApplicationProfiles()
         {
             CreateMap<Factura, FacturaViewModel>().ReverseMap();
+            CreateMap<DetaliiFactura, DetaliiFacturaViewModel>().ReverseMap();
         }
     }
 }
