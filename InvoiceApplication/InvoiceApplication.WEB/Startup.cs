@@ -1,3 +1,4 @@
+using AutoMapper;
 using InvoiceApplication.CORE.Interfaces;
 using InvoiceApplication.INFRASTRUCTURE.Data;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace InvoiceApplication.WEB
@@ -32,6 +34,7 @@ namespace InvoiceApplication.WEB
             });
 
             services.AddScoped<IAsyncRepository, EFRepository>();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddControllersWithViews();
         }
 
