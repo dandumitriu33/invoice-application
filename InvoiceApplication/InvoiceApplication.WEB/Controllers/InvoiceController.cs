@@ -32,6 +32,7 @@ namespace InvoiceApplication.WEB.Controllers
         }
 
         [HttpGet]
+        [Route("editinvoice/{invoiceId}")]
         public async Task<IActionResult> EditInvoice(int invoiceId)
         {
             Factura invoiceFromDb = await _repository.GetInvoiceById(invoiceId);
