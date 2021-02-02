@@ -98,50 +98,52 @@
         </div>
     </div>
 
-    @if (Model.Detalii != null)
-    {
-        @for (int i = 0; i < Model.Detalii.Count; i++)
+    <div id="detailsContainer">
+        @if (Model.Detalii != null)
         {
-            int invoicePosition = i + 1;
-            decimal valoareTVAProdus = Model.Detalii[i].Valoare * TVA / 100;
-            subtotal += Model.Detalii[i].Valoare;
-            totalTVA += valoareTVAProdus;
-            totalDePlata += Model.Detalii[i].Valoare + valoareTVAProdus;
-            <div class="row">
-                <div class="col-1 border text-center">
-                    <p>@invoicePosition</p>
+            @for (int i = 0; i < Model.Detalii.Count; i++)
+            {
+                int invoicePosition = i + 1;
+                decimal valoareTVAProdus = Model.Detalii[i].Valoare * TVA / 100;
+                subtotal += Model.Detalii[i].Valoare;
+                totalTVA += valoareTVAProdus;
+                totalDePlata += Model.Detalii[i].Valoare + valoareTVAProdus;
+                <div class="row">
+                    <div class="col-1 border text-center">
+                        <p>@invoicePosition</p>
+                    </div>
+                    <div class="col-5 border text-center">
+                        <p>@Model.Detalii[i].NumeProdus</p>
+                    </div>
+                    <div class="col-1 border text-center">
+                        <p>buc</p>
+                    </div>
+                    <div class="col-1 border text-center">
+                        <p>@Model.Detalii[i].Cantitate.ToString("0.00")</p>
+                    </div>
+                    <div class="col-1 border text-center">
+                        <p>@Model.Detalii[i].PretUnitar.ToString("0.00")</p>
+                    </div>
+                    <div class="col-1 border text-center">
+                        <p>@Model.Detalii[i].Valoare.ToString("0.00")</p>
+                    </div>
+                    <div class="col-1 border text-center">
+                        <p>@TVA.ToString("0.00")</p>
+                    </div>
+                    <div class="col-1 border text-center">
+                        <p>@valoareTVAProdus.ToString("0.00")</p>
+                    </div>
                 </div>
-                <div class="col-5 border text-center">
-                    <p>@Model.Detalii[i].NumeProdus</p>
-                </div>
-                <div class="col-1 border text-center">
-                    <p>buc</p>
-                </div>
-                <div class="col-1 border text-center">
-                    <p>@Model.Detalii[i].Cantitate.ToString("0.00")</p>
-                </div>
-                <div class="col-1 border text-center">
-                    <p>@Model.Detalii[i].PretUnitar.ToString("0.00")</p>
-                </div>
-                <div class="col-1 border text-center">
-                    <p>@Model.Detalii[i].Valoare.ToString("0.00")</p>
-                </div>
-                <div class="col-1 border text-center">
-                    <p>@TVA.ToString("0.00")</p>
-                </div>
-                <div class="col-1 border text-center">
-                    <p>@valoareTVAProdus.ToString("0.00")</p>
-                </div>
-            </div>
+            }
         }
-    }
+    </div>
 
 
-    <div class="row">
+    <div class="row" id="addDetailsButtonRow">
         <div class="col-1 border text-center">
         </div>
         <div class="col-5 border text-center">
-            <button class="btn btn-outline-primary btn-sm m-1"> + </button>
+            <button id="addDetailsButton" class="btn btn-outline-primary btn-sm m-1"> + </button>
         </div>
         <div class="col-1 border text-center">
         </div>
