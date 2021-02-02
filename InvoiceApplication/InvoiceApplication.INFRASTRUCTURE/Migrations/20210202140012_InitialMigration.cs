@@ -11,7 +11,8 @@ namespace InvoiceApplication.INFRASTRUCTURE.Migrations
                 name: "DetaliiFacturi",
                 columns: table => new
                 {
-                    IdDetaliiFactura = table.Column<int>(nullable: false),
+                    IdDetaliiFactura = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     IdLocatie = table.Column<int>(nullable: false),
                     IdFactura = table.Column<int>(nullable: false),
                     NumeProdus = table.Column<string>(maxLength: 200, nullable: true),
