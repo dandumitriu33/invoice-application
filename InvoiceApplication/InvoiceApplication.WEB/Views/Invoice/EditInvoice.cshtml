@@ -11,7 +11,10 @@
         <div class="col-md-12">
             <form method="post" asp-action="EditInvoice" asp-controller="Invoice">
                 <div asp-validation-summary="All" class="text-danger"></div>
-
+                <div class="form-group">
+                    <input type="text"
+                           readonly hidden asp-for="IdFactura" id="IdFactura" class="form-control" value="@Model.IdFactura" />
+                </div>
                 <div class="form-group">
                     <label for="IdLocatie">Id Locatie</label>
                     <input type="number"
@@ -47,11 +50,11 @@
 
                 @if (Model.IdFactura == 0)
                 {
-                    <button id="submitNewInvoice" class="btn btn-primary">Add Invoice</button>
+                    <button id="submitNewInvoice" class="btn btn-primary" asp-action="EditInvoice" asp-controller="Invoice">Add Invoice</button>
                 }
                 else
                 {
-                    <button id="submitNewInvoice" class="btn btn-warning">Edit Invoice</button>
+                    <button id="submitNewInvoice" class="btn btn-warning" asp-action="EditInvoice" asp-controller="Invoice">Edit Invoice</button>
                 }
 
             </form>

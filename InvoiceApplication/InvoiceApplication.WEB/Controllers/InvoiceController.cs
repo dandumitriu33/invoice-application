@@ -46,13 +46,24 @@ namespace InvoiceApplication.WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddInvoice(FacturaViewModel invoice)
+        public async Task<IActionResult> EditInvoice(FacturaViewModel invoice)
         {
             if (ModelState.IsValid)
             {
-                Factura invoiceForDb = _mapper.Map<FacturaViewModel, Factura>(invoice);
-                await _repository.AddInvoice(invoiceForDb);
+                if (invoice.IdFactura == 0)
+                {
+                    Factura invoiceForDb = _mapper.Map<FacturaViewModel, Factura>(invoice);
+                    await _repository.AddInvoice(invoiceForDb);
+                    return RedirectToAction("AllInvoices", "Invoice");
+                }
+                Factura invoiceFromDb = await _repository.GetInvoiceById(invoice.IdFactura);
+                invoiceFromDb.IdLocatie = invoice.IdLocatie;
+                invoiceFromDb.NumarFactura = invoice.NumarFactura;
+                invoiceFromDb.DataFactura = invoice.DataFactura;
+                invoiceFromDb.NumeClient = invoice.NumeClient;
+                await _repository.EditInvoice(invoiceFromDb);
                 return RedirectToAction("AllInvoices", "Invoice");
+
             }
             return View("AddInvoice");
         }

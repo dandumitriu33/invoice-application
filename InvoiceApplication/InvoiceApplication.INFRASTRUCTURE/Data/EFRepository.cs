@@ -34,5 +34,19 @@ namespace InvoiceApplication.INFRASTRUCTURE.Data
         {
             return await _context.Facturi.Where(f => f.IdFactura == invoiceId).FirstOrDefaultAsync();
         }
+
+        public async Task<Factura> EditInvoice(Factura invoice)
+        {
+            Factura invoiceFromDb = await _context.Facturi.Where(f => f.IdFactura == invoice.IdFactura).FirstOrDefaultAsync();
+            invoiceFromDb.IdLocatie = invoice.IdLocatie;
+            invoiceFromDb.NumarFactura = invoice.NumarFactura;
+            invoiceFromDb.DataFactura = invoice.DataFactura;
+            invoiceFromDb.NumeClient = invoice.NumeClient;
+
+            _context.Facturi.Attach(invoiceFromDb);
+            _context.Entry(invoiceFromDb).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return invoice;
+        }
     }
 }
