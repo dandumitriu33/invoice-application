@@ -3,6 +3,7 @@ using InvoiceApplication.CORE.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,6 +28,11 @@ namespace InvoiceApplication.INFRASTRUCTURE.Data
             await _context.Facturi.AddAsync(invoice);
             await _context.SaveChangesAsync();
             return invoice;
+        }
+
+        public async Task<Factura> GetInvoiceById(int invoiceId)
+        {
+            return await _context.Facturi.Where(f => f.IdFactura == invoiceId).FirstOrDefaultAsync();
         }
     }
 }

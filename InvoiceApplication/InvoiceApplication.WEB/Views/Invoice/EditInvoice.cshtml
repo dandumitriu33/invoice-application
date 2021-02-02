@@ -1,40 +1,46 @@
-﻿@model  FacturaViewModel
+﻿@model FacturaViewModel
 
-<h4>Add Invoice</h4>
+<h4>Invoice</h4>
 
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <form method="post" asp-action="AddInvoice" asp-controller="Invoice">
+            <form method="post" asp-action="EditInvoice" asp-controller="Invoice">
                 <div asp-validation-summary="All" class="text-danger"></div>
-                
+
                 <div class="form-group">
                     <label for="IdLocatie">Id Locatie</label>
-                    <input type="number" asp-for="IdLocatie" id="IdLocatie" class="form-control" />
+                    <input type="number" 
+                           asp-for="IdLocatie" 
+                           id="IdLocatie" 
+                           class="form-control" 
+                           placeholder="@Model.IdLocatie"/>
                 </div>
                 <div class="form-group">
                     <label for="NumarFactura">Numar Factura</label>
                     <input type="text"
                            asp-for="NumarFactura"
                            id="NumarFactura"
-                           class="form-control" />
+                           class="form-control" 
+                           placeholder="@Model.NumarFactura"/>
                 </div>
                 <div class="form-group">
                     <label for="DataFactura">Data Factura</label>
                     <input type="date"
                            asp-for="DataFactura"
                            id="DataFactura"
-                           class="form-control"
-                           />
+                           class="form-control" 
+                           placeholder="@Model.DataFactura"/>
                 </div>
                 <div class="form-group">
                     <label for="NumeClient">Nume Client</label>
                     <input type="text"
                            asp-for="NumeClient"
                            id="NumeClient"
-                           class="form-control"/>
+                           class="form-control" 
+                           placeholder="@Model.NumeClient"/>
                 </div>
-                
+
                 <button id="submitNewInvoice" class="btn btn-primary">Submit Invoice</button>
             </form>
         </div>
