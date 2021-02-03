@@ -1,13 +1,39 @@
 ﻿
 async function updateInvoice() {
-    let idLocatie = $("#idLocatie").text().trim();
-    let invoiceSerial = $("#invoiceSerial").text().trim();
-    let invoiceNumber = $("#invoiceNumber").text().trim();
-    let invoiceDate = $("#invoiceDate").text().trim();
+    let idFactura = parseInt($("#idFactura").text().trim());
+    let idLocatie = parseInt($("#idLocatie").text().trim());
+    //let invoiceSerial = $("#invoiceSerial").text().trim();
+    //let invoiceNumber = $("#invoiceNumber").text().trim();
+    let invoiceNumber = $("#invoiceSerial").text().trim() + " " + $("#invoiceNumber").text().trim();
+    let unprocessedInvoiceDate = $("#invoiceDate").text().trim();
+    let invoiceDate = `${unprocessedInvoiceDate.split('.')[2]}-${unprocessedInvoiceDate.split('.')[1]}-${unprocessedInvoiceDate.split('.')[0]}T00:00:00`;
     let customerName = $("#customerName").text().trim();
-    console.log("utils id locatie: " + idLocatie + " Serial: " + invoiceSerial +
-        " inv num: " + invoiceNumber + " inv date: " + invoiceDate +
-        " c name: " + customerName);
+    let data = {
+        "IdFactura": idFactura,
+        "IdLocatie": idLocatie,
+        "NumarFactura": invoiceNumber,
+        "DataFactura": invoiceDate,
+        "NumeClient": customerName
+    }
+    console.log(data);
+    let URL = `https://localhost:44317/api/invoices/update-invoice`;
+
+    var obj = JSON.stringify(data);
+    console.log("obj" + obj);
+    await $.ajax({
+        type: "PUT",
+        url: URL,
+        data: obj,
+        contentType: "application/json; charset=utf-8",
+        crossDomain: true,
+        success: function () {
+            console.log("Invoice updated successfully.");
+        },
+        error: function (jqXHR, status) {
+            console.log(jqXHR);
+            console.log('fail' + status.code);
+        }
+    });
 }
 
 async function addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUnitar, valoare) {
