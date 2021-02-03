@@ -79,5 +79,23 @@ namespace InvoiceApplication.API.Controllers
             return Ok();
         }
 
+        // PUT: api/<InvoicesController>/update-invoice-detail
+        [HttpPut]
+        [Route("update-invoice-detail")]
+        public async Task<IActionResult> UpdateInvoiceDetail(DetaliiFacturaDTO detaliiFacturaDTO)
+        {
+            DetaliiFactura detailFromDb = await _repository.GetInvoiceDetailById(detaliiFacturaDTO.IdDetaliiFactura);
+            if (detailFromDb == null)
+            {
+                return BadRequest();
+            }
+            detailFromDb.NumeProdus = detaliiFacturaDTO.NumeProdus;
+            detailFromDb.Cantitate = detaliiFacturaDTO.Cantitate;
+            detailFromDb.PretUnitar = detaliiFacturaDTO.PretUnitar;
+            detailFromDb.Valoare = detaliiFacturaDTO.Valoare;
+            await _repository.EditInvoiceDetail(detailFromDb);
+            return Ok();
+        }
+
     }
 }
