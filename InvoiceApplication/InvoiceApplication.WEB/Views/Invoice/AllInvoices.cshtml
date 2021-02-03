@@ -23,7 +23,7 @@
                 <th scope="row">@factura.IdFactura</th>
                 <td>@factura.IdLocatie</td>
                 <td><a asp-action="EditInvoice" asp-controller="Invoice" asp-route-invoiceId="@factura.IdFactura">@factura.NumarFactura</a></td>
-                <td>@factura.DataFactura</td>
+                <td>@factura.DataFactura.ToString("dd.MM.yyyy")</td>
                 <td>@factura.NumeClient</td>
             </tr>
         }

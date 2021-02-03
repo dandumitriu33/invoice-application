@@ -15,7 +15,24 @@
             <h6>Furnizor: S.C. Companie Furnizoare S.R.L.</h6>
             <h6>CUI: 12345678</h6>
             <h6>Reg. Com.: J12/1023/2019</h6>
-            <h6>Adresa: <span id="idLocatie">@Model.IdLocatie </span> - Cireselor 22, Cluj-Napoca, Cluj</h6>
+            <h6>Adresa: 
+                <span id="locationContainer">
+                    @if (Model.IdLocatie != 0)
+                    {
+                        <span id="idLocatie">
+                            @Model.IdLocatie
+                        </span>
+                    }
+                    else
+                    {
+                        <span id="idLocatie">
+                            ...
+                        </span>
+                    }
+
+                </span>
+                - Cireselor 22, Cluj-Napoca, Cluj
+            </h6>
             <h6>Cont: RO37TREZ1234000XXX123401</h6>
             <h6>Banca: Trezoreria Cluj-Napoca</h6>
             
@@ -23,23 +40,81 @@
         <div class="col-4 mt-1">
             <h2 class="text-center">FACTURA</h2>
             <p hidden id="idFactura">@Model.IdFactura</p>
-            <h6>Seria: </h6>
-            <h6>Numar: @Model.NumarFactura</h6>
-            <h6>Data: @Model.DataFactura</h6>
+            <h6>
+                Seria: 
+                <span id="invoiceSerialContainer">
+                    @if (Model.NumarFactura != null)
+                    {
+                        <span id="invoiceSerial">
+                            @Model.NumarFactura.Split(' ')[0]
+                        </span>
+                    }
+                    else
+                    {
+                        <span id="invoiceSerial">
+                            ...  
+                        </span>
+                    }
+                </span>
+            </h6>
+            <h6>
+                Numar: 
+                <span id="invoiceNumberContainer">
+                    @if (Model.NumarFactura != null)
+                    {
+                        <span id="invoiceNumber">
+                            @Model.NumarFactura.Split(' ')[1]
+                        </span>
+                    }
+                    else
+                    {
+                        <span id="invoiceNumber">
+                            ...
+                        </span>
+                    }
+                </span>
+            </h6>
+            <h6>
+                Data: 
+                <span id="invoiceDateContainer">
+                    <span id="invoiceDate">
+                        @Model.DataFactura.ToString("dd.MM.yyyy")
+                    </span>
+                </span>
+            </h6>
             <h6>Data scadenta: 03.03.2021</h6>
             <h6>Aviz: </h6>
         </div>
         <div class="col-4 mt-1">
-            <h6>Client: @Model.NumeClient</h6>
+            <h6>
+                Client: 
+                <span id="customerNameContainer">
+                    @if (Model.NumeClient != null)
+                    {
+                        <span id="customerName">
+                            @Model.NumeClient
+                        </span>
+                    }
+                    else
+                    {
+                        <span id="customerName">
+                            ...
+                        </span>
+                    }
+                </span>
+            </h6>
             <h6>CUI: 99345678</h6>
             <h6>Reg. Com.: J12/1044/2019</h6>
             <h6>Adresa: Merelor 28, Cluj-Napoca, Cluj</h6>
             <h6>Cont: RO37TREZ1234999XXX123499</h6>
             <h6>Banca: Trezoreria Cluj-Napoca</h6>
-            <h6>Telefon: 123 1234 1234 </h6>
+            <h6>Telefon: 0712 345 678 </h6>
         </div>
     </div>
     <br />
+    <div>
+        <p id="detailsErrorMessage" class="text-danger"></p>
+    </div>
     <div class="row">
         <div class="col-1 border text-center">
             <h6>NR.</h6>
@@ -109,30 +184,30 @@
                 subtotal += Model.Detalii[i].Valoare;
                 totalTVA += valoareTVAProdus;
                 totalDePlata += Model.Detalii[i].Valoare + valoareTVAProdus;
-                <div class="row">
+                <div class="row" id="@Model.Detalii[i].IdDetaliiFactura-detailContainer">
                     <div class="col-1 border text-center">
-                        <p>@invoicePosition</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-invoicePosition">@invoicePosition</p>
                     </div>
                     <div class="col-5 border text-center">
-                        <p>@Model.Detalii[i].NumeProdus</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-productName">@Model.Detalii[i].NumeProdus</p>
                     </div>
                     <div class="col-1 border text-center">
-                        <p>buc</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-unitType">buc</p>
                     </div>
                     <div class="col-1 border text-center">
-                        <p>@Model.Detalii[i].Cantitate.ToString("0.00")</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-quantity">@Model.Detalii[i].Cantitate.ToString("0.00")</p>
                     </div>
                     <div class="col-1 border text-center">
-                        <p>@Model.Detalii[i].PretUnitar.ToString("0.00")</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-unitPrice">@Model.Detalii[i].PretUnitar.ToString("0.00")</p>
                     </div>
                     <div class="col-1 border text-center">
-                        <p>@Model.Detalii[i].Valoare.ToString("0.00")</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-value">@Model.Detalii[i].Valoare.ToString("0.00")</p>
                     </div>
                     <div class="col-1 border text-center">
-                        <p>@TVA.ToString("0.00")</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-VAT">@TVA.ToString("0.00")</p>
                     </div>
                     <div class="col-1 border text-center">
-                        <p>@valoareTVAProdus.ToString("0.00")</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-VATValue">@valoareTVAProdus.ToString("0.00")</p>
                     </div>
                 </div>
             }
@@ -190,9 +265,9 @@
     </div>
 </div>
 
-<hr />
 
 
+@*<hr />
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -247,7 +322,7 @@
             </form>
         </div>
     </div>
-</div>
+</div>*@
 
 @section Scripts {
     <script type="module" src="~/js/editInvoice.js"></script>

@@ -83,6 +83,28 @@ namespace InvoiceApplication.INFRASTRUCTURE.Data
             }
         }
 
+        public async Task<DetaliiFactura> EditInvoiceDetail(DetaliiFactura invoiceDetails)
+        {
+            DetaliiFactura invoiceDetailsFromDb = await _context.DetaliiFacturi.Where(df => df.IdDetaliiFactura == invoiceDetails.IdDetaliiFactura).FirstOrDefaultAsync();
+            invoiceDetailsFromDb.NumeProdus = invoiceDetails.NumeProdus;
+            invoiceDetailsFromDb.Cantitate = invoiceDetails.Cantitate;
+            invoiceDetailsFromDb.PretUnitar = invoiceDetails.PretUnitar;
+            invoiceDetailsFromDb.Valoare = invoiceDetails.Valoare;
+
+            _context.DetaliiFacturi.Attach(invoiceDetailsFromDb);
+            _context.Entry(invoiceDetailsFromDb).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return invoiceDetails;
+        }
+
+        public async Task<DetaliiFactura> GetInvoiceDetailById(int detailId)
+        {
+            return await _context.DetaliiFacturi.Where(df => df.IdDetaliiFactura == detailId).FirstOrDefaultAsync();
+        }
+
+
+
+
         private List<DetaliiFactura> generateSeedDetails()
         {
             List<DetaliiFactura> details = new List<DetaliiFactura>();

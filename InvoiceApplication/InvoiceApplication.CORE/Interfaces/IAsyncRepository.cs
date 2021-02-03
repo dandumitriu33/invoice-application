@@ -16,5 +16,7 @@ namespace InvoiceApplication.CORE.Interfaces
         Task<List<DetaliiFactura>> GetDetailsForInvoice(int invoiceId);
         Task<List<Factura>> GetFirstInvoices();
         Task SeedDbData();
+        Task<DetaliiFactura> EditInvoiceDetail(DetaliiFactura invoiceDetails);
+        Task<DetaliiFactura> GetInvoiceDetailById(int detailId);
     }
 }

@@ -44,6 +44,24 @@ namespace InvoiceApplication.API.Controllers
             }
         }
 
+        // POST: api/<InvoicesController>/add-invoice
+        [HttpPost]
+        [Route("add-invoice")]
+        public async Task<IActionResult> AddInvoice(FacturaDTO facturaDTO)
+        {
+            try
+            {
+                Factura newInvoice = _mapper.Map<FacturaDTO, Factura>(facturaDTO);
+                await _repository.AddInvoice(newInvoice);
+                return Ok(newInvoice);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
+        }
+
         // POST: api/<InvoicesController>/add-invoice-details
         [HttpPost]
         [Route("add-invoice-details")]
@@ -59,7 +77,43 @@ namespace InvoiceApplication.API.Controllers
             return Ok();
         }
 
+        // PUT: api/<InvoicesController>/update-invoice
+        [HttpPut]
+        [Route("update-invoice")]
+        public async Task<IActionResult> UpdateInvoice(FacturaDTO facturaDTO)
+        {
+            Factura invoiceFromDb = await _repository.GetInvoiceById(facturaDTO.IdFactura);
+            if (invoiceFromDb == null)
+            {
+                return BadRequest();
+            }
+            // IdLocatie is a composite primary key and cannot be modified 
+            // In order to modify the IdLocatie we have to remove the primary key from it
+            //invoiceFromDb.IdLocatie = facturaDTO.IdLocatie;
+            invoiceFromDb.NumarFactura = facturaDTO.NumarFactura;
+            invoiceFromDb.DataFactura = facturaDTO.DataFactura;
+            invoiceFromDb.NumeClient = facturaDTO.NumeClient;
+            await _repository.EditInvoice(invoiceFromDb);
+            return Ok();
+        }
 
+        // PUT: api/<InvoicesController>/update-invoice-detail
+        [HttpPut]
+        [Route("update-invoice-detail")]
+        public async Task<IActionResult> UpdateInvoiceDetail(DetaliiFacturaDTO detaliiFacturaDTO)
+        {
+            DetaliiFactura detailFromDb = await _repository.GetInvoiceDetailById(detaliiFacturaDTO.IdDetaliiFactura);
+            if (detailFromDb == null)
+            {
+                return BadRequest();
+            }
+            detailFromDb.NumeProdus = detaliiFacturaDTO.NumeProdus;
+            detailFromDb.Cantitate = detaliiFacturaDTO.Cantitate;
+            detailFromDb.PretUnitar = detaliiFacturaDTO.PretUnitar;
+            detailFromDb.Valoare = detaliiFacturaDTO.Valoare;
+            await _repository.EditInvoiceDetail(detailFromDb);
+            return Ok();
+        }
 
     }
 }
