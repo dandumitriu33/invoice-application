@@ -59,7 +59,25 @@ namespace InvoiceApplication.API.Controllers
             return Ok();
         }
 
-
+        // PUT: api/<InvoicesController>/update-invoice
+        [HttpPut]
+        [Route("update-invoice")]
+        public async Task<IActionResult> UpdateInvoice(FacturaDTO facturaDTO)
+        {
+            Factura invoiceFromDb = await _repository.GetInvoiceById(facturaDTO.IdFactura);
+            if (invoiceFromDb == null)
+            {
+                return BadRequest();
+            }
+            // IdLocatie is a composite primary key and cannot be modified 
+            // In order to modify the IdLocatie we have to remove the primary key from it
+            //invoiceFromDb.IdLocatie = facturaDTO.IdLocatie;
+            invoiceFromDb.NumarFactura = facturaDTO.NumarFactura;
+            invoiceFromDb.DataFactura = facturaDTO.DataFactura;
+            invoiceFromDb.NumeClient = facturaDTO.NumeClient;
+            await _repository.EditInvoice(invoiceFromDb);
+            return Ok();
+        }
 
     }
 }

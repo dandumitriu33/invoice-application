@@ -4,11 +4,13 @@
 setClickEvents();
 
 function setClickEvents() {
-    $("#idLocatie").unbind('click');
-    $("#idLocatie").click(function () {
-        console.log("IdLocatie clicked");
-        locationSwitchToInput();
-    });
+    // IdLocatie is a composite primary key and cannot be modified 
+    // In order to modify the IdLocatie we have to remove the primary key from it
+    //$("#idLocatie").unbind('click');
+    //$("#idLocatie").click(function () {
+    //    console.log("IdLocatie clicked");
+    //    locationSwitchToInput();
+    //});
     $("#invoiceSerial").unbind('click');
     $("#invoiceSerial").click(function () {
         console.log("inv seri click");
