@@ -2,7 +2,8 @@
 async function updateInvoice() {
     let idLocatie = $("#idLocatie").text().trim();
     let invoiceSerial = $("#invoiceSerial").text().trim();
-    console.log("utils id locatie: " + idLocatie + " Serial: " + invoiceSerial);
+    let invoiceNumber = $("#invoiceNumber").text().trim();
+    console.log("utils id locatie: " + idLocatie + " Serial: " + invoiceSerial + " inv num: " + invoiceNumber);
 }
 
 async function addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUnitar, valoare) {

@@ -14,6 +14,41 @@ function setClickEvents() {
         console.log("inv seri click");
         invoiceSerialSwitchToInput();
     });
+    $("#invoiceNumber").unbind('click');
+    $("#invoiceNumber").click(function () {
+        console.log("inv num click");
+        invoiceNumberSwitchToInput();
+    });
+}
+
+function invoiceNumberSwitchToInput() {
+    console.log("num invo switch to input reached");
+    let currentNumber = $("#invoiceNumber").text().trim();
+    console.log("c num: " + currentNumber);
+    let numberInputElement = `
+                            <span>
+                                <input id="newNumberInput" type="text" class="form-control" value="${currentNumber}"/>
+                            </span>
+                            `;
+    $("#invoiceNumber").remove();
+    $("#invoiceNumberContainer").append(numberInputElement);
+    $("#newNumberInput").focus();
+    $("#newNumberInput").change(function () {
+        let newNumber = $("#newNumberInput").val();
+        let numberElement = `<span id="invoiceNumber">${newNumber}</span>`;
+        $("#newNumberInput").remove();
+        $("#invoiceNumberContainer").append(numberElement);
+        updateInvoice();
+        setClickEvents();
+    });
+    $("#newNumberInput").blur(function () {
+        let newNumber = $("#newNumberInput").val();
+        let numberElement = `<span id="invoiceNumber">${newNumber}</span>`;
+        $("#newNumberInput").remove();
+        $("#invoiceNumberContainer").append(numberElement);
+        updateInvoice();
+        setClickEvents();
+    })
 }
 
 function invoiceSerialSwitchToInput() {
