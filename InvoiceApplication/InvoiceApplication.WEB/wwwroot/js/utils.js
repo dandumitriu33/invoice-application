@@ -1,4 +1,8 @@
-﻿console.log("hi from utils");
+﻿
+async function updateInvoice() {
+    let idLocatie = $("#idLocatie").text();
+    console.log("utils id locatie: " + idLocatie);
+}
 
 async function addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUnitar, valoare) {
     console.log("idFactura " + idFactura + " idLocatie " + idLocatie + " nume: " + numeProdus + " cant: " + cantitate + " pretUnit: " + pretUnitar + " valoare: " + valoare);
@@ -36,4 +40,4 @@ async function addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUn
 
 }
 
-export { addNewDetails };
+export { updateInvoice, addNewDetails };

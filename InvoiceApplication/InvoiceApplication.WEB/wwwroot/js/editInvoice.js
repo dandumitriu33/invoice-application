@@ -1,5 +1,51 @@
-﻿import { addNewDetails } from "./utils.js";
+﻿import { updateInvoice, addNewDetails } from "./utils.js";
 
+// INVOICE HEADER SECTION
+setClickEvents();
+
+function setClickEvents() {
+    $("#idLocatie").click(function () {
+        event.stopPropagation();
+        console.log("IdLocatie clicked");
+        locationSwitchToInput();
+    });
+}
+
+function locationSwitchToInput() {
+    console.log("switch to input reached");
+    let currentLocation = parseInt($("#idLocatie").text());
+
+    let locationInputElement = `
+                                <span>
+                                    <input id="newLocationInput" type="text" class="form-control" value="${currentLocation}"/>
+                                </span>
+                                `;
+    $("#idLocatie").remove();
+    $("#locationContainer").append(locationInputElement);
+    $("#newLocationInput").focus();
+    $("#newLocationInput").change(function () {
+        let newLocationId = $("#newLocationInput").val();
+        let locationElement = `
+                                <span id="idLocatie">${newLocationId}</span>
+                                `;
+        $("#newLocationInput").remove();
+        $("#locationContainer").append(locationElement);
+        updateInvoice();
+        setClickEvents();
+    });
+    $("#newLocationInput").blur(function () {
+        let newLocationId = $("#newLocationInput").val();
+        let locationElement = `
+                                <span id="idLocatie">${newLocationId}</span>
+                                `;
+        $("#newLocationInput").remove();
+        $("#locationContainer").append(locationElement);
+        updateInvoice();
+        setClickEvents();
+    })
+};
+
+// DETAILS SECTION
 $("#addDetailsButton").click(function () {
     console.log("add details clicked");
     populateAddDetailsForm();
