@@ -24,6 +24,41 @@ function setClickEvents() {
         console.log("inv date click");
         invoiceDateSwitchToInput();
     });
+    $("#customerName").unbind('click');
+    $("#customerName").click(function () {
+        console.log("c name click");
+        customerNameSwitchToInput();
+    });
+}
+
+function customerNameSwitchToInput() {
+    console.log("c name switch to input reached");
+    let currentCustomerName = $("#customerName").text().trim();
+    console.log("c name: " + currentCustomerName);
+    let customerNameInputElement = `
+                                    <span>
+                                        <input id="newCustomerNameInput" type="text" class="form-control" value="${currentCustomerName}"/>
+                                    </span>
+                                    `;
+    $("#customerName").remove();
+    $("#customerNameContainer").append(customerNameInputElement);
+    $("#newCustomerNameInput").focus();
+    $("#newCustomerNameInput").change(function () {
+        let newCustomerName = $("#newCustomerNameInput").val();
+        let customerNameElement = `<span id="customerName">${newCustomerName}</span>`;
+        $("#newCustomerNameInput").remove();
+        $("#customerNameContainer").append(customerNameElement);
+        updateInvoice();
+        setClickEvents();
+    });
+    $("#newCustomerNameInput").blur(function () {
+        let newCustomerName = $("#newCustomerNameInput").val();
+        let customerNameElement = `<span id="customerName">${newCustomerName}</span>`;
+        $("#newCustomerNameInput").remove();
+        $("#customerNameContainer").append(customerNameElement);
+        updateInvoice();
+        setClickEvents();
+    })
 }
 
 function invoiceDateSwitchToInput() {
