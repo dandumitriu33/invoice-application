@@ -19,6 +19,41 @@ function setClickEvents() {
         console.log("inv num click");
         invoiceNumberSwitchToInput();
     });
+    $("#invoiceDate").unbind('click');
+    $("#invoiceDate").click(function () {
+        console.log("inv date click");
+        invoiceDateSwitchToInput();
+    });
+}
+
+function invoiceDateSwitchToInput() {
+    console.log("date invo switch to input reached");
+    let currentDate = $("#invoiceDate").text().trim();
+    console.log("c date: " + currentDate);
+    let dateInputElement = `
+                            <span>
+                                <input id="newDateInput" type="text" class="form-control" value="${currentDate}"/>
+                            </span>
+                            `;
+    $("#invoiceDate").remove();
+    $("#invoiceDateContainer").append(dateInputElement);
+    $("#newDateInput").focus();
+    $("#newDateInput").change(function () {
+        let newDate = $("#newDateInput").val();
+        let dateElement = `<span id="invoiceDate">${newDate}</span>`;
+        $("#newDateInput").remove();
+        $("#invoiceDateContainer").append(dateElement);
+        updateInvoice();
+        setClickEvents();
+    });
+    $("#newDateInput").blur(function () {
+        let newDate = $("#newDateInput").val();
+        let dateElement = `<span id="invoiceDate">${newDate}</span>`;
+        $("#newDateInput").remove();
+        $("#invoiceDateContainer").append(dateElement);
+        updateInvoice();
+        setClickEvents();
+    })
 }
 
 function invoiceNumberSwitchToInput() {
