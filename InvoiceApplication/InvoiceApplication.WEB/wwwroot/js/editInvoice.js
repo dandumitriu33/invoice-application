@@ -254,6 +254,7 @@ function setClickEventsOnDetails() {
             $("#" + detailId + "-newProductName").focus();
             $("#" + detailId + "-save").click(function () {
                 console.log("save edited detail clicked");
+                console.log("pre util update detailId: " + detailId.split('-')[0]);
                 updateDetail(detailId);
                 EDITDETAILACTIVE = false;
             });
