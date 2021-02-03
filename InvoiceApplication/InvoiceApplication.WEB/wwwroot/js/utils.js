@@ -130,7 +130,10 @@ async function addNewInvoice() {
     let invoiceId = 0;
     let locationId = parseInt($("#idLocatie").text());
     let invoiceNumber = $("#invoiceSerial").text().trim() + " " + $("#invoiceNumber").text().trim();
-    let invoiceDate = `${$("#invoiceDate").text().trim().split('.')[2]}-${$("#invoiceDate").text().trim().split('.')[1]}-${$("#invoiceDate").text().trim().split('.')[0]}T00:00:00`;
+    let year = $("#invoiceDate").text().trim().split('.')[2];
+    let month = $("#invoiceDate").text().trim().split('.')[1];
+    let day = $("#invoiceDate").text().trim().split('.')[0];
+    let invoiceDate = `${year}-${month}-${day}T00:00:00`;
     let customerName = $("#customerName").text().trim();
 
     if (locationId > 0 && invoiceNumber.trim().length > 7 && invoiceDate !== "0001-01-01T00:00:00" && customerName !== "...") {
