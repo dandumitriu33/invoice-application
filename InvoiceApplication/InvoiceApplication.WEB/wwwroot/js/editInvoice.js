@@ -4,16 +4,51 @@
 setClickEvents();
 
 function setClickEvents() {
+    $("#idLocatie").unbind('click');
     $("#idLocatie").click(function () {
-        event.stopPropagation();
         console.log("IdLocatie clicked");
         locationSwitchToInput();
     });
+    $("#invoiceSerial").unbind('click');
+    $("#invoiceSerial").click(function () {
+        console.log("inv seri click");
+        invoiceSerialSwitchToInput();
+    });
+}
+
+function invoiceSerialSwitchToInput() {
+    console.log("serial switch to input reached");
+    let currentSerial = $("#invoiceSerial").text().trim();
+    console.log("c ser: " + currentSerial);
+    let serialInputElement = `
+                            <span>
+                                <input id="newSerialInput" type="text" class="form-control" value="${currentSerial}"/>
+                            </span>
+                            `;
+    $("#invoiceSerial").remove();
+    $("#invoiceSerialContainer").append(serialInputElement);
+    $("#newSerialInput").focus();
+    $("#newSerialInput").change(function () {
+        let newSerial = $("#newSerialInput").val();
+        let serialElement = `<span id="invoiceSerial">${newSerial}</span>`;
+        $("#newSerialInput").remove();
+        $("#invoiceSerialContainer").append(serialElement);
+        updateInvoice();
+        setClickEvents();
+    });
+    $("#newSerialInput").blur(function () {
+        let newSerial = $("#newSerialInput").val();
+        let serialElement = `<span id="invoiceSerial">${newSerial}</span>`;
+        $("#newSerialInput").remove();
+        $("#invoiceSerialContainer").append(serialElement);
+        updateInvoice();
+        setClickEvents();
+    })
 }
 
 function locationSwitchToInput() {
     console.log("switch to input reached");
-    let currentLocation = parseInt($("#idLocatie").text());
+    let currentLocation = parseInt($("#idLocatie").text().trim());
 
     let locationInputElement = `
                                 <span>

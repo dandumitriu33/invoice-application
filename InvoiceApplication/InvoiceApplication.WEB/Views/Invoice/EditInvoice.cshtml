@@ -30,8 +30,22 @@
         <div class="col-4 mt-1">
             <h2 class="text-center">FACTURA</h2>
             <p hidden id="idFactura">@Model.IdFactura</p>
-            <h6>Seria: </h6>
-            <h6>Numar: @Model.NumarFactura</h6>
+            <h6>
+                Seria: 
+                <span id="invoiceSerialContainer">
+                    <span id="invoiceSerial">
+                        @Model.NumarFactura.Split(' ')[0]
+                    </span>
+                </span>
+            </h6>
+            <h6>
+                Numar: 
+                <span id="invoiceNumberContainer">
+                    <span id="invoiceNumber">
+                        @Model.NumarFactura.Split(' ')[1]
+                    </span>
+                </span>
+            </h6>
             <h6>Data: @Model.DataFactura</h6>
             <h6>Data scadenta: 03.03.2021</h6>
             <h6>Aviz: </h6>
