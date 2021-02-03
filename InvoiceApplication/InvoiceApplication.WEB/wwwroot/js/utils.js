@@ -49,7 +49,7 @@ async function deleteDetail(detailId) {
 }
 
 async function updateInvoice() {
-    
+    console.log("Entered UPDATE");
     let idFactura = parseInt($("#idFactura").text().trim());
     let idLocatie = parseInt($("#idLocatie").text().trim());
     //let invoiceSerial = $("#invoiceSerial").text().trim();
@@ -58,8 +58,7 @@ async function updateInvoice() {
     let unprocessedInvoiceDate = $("#invoiceDate").text().trim();
     let invoiceDate = `${unprocessedInvoiceDate.split('.')[2]}-${unprocessedInvoiceDate.split('.')[1]}-${unprocessedInvoiceDate.split('.')[0]}T00:00:00`;
     let customerName = $("#customerName").text().trim();
-    console.log(">>>>>>>>>>>>>> id fact: " + idFactura);
-    if (idFactura > 0) {
+    if (invoiceNumber.trim().length > 7 && invoiceDate !== "0001-01-01T00:00:00" && (customerName === "...") == false) {
         let data = {
             "IdFactura": idFactura,
             "IdLocatie": idLocatie,
@@ -80,6 +79,7 @@ async function updateInvoice() {
             crossDomain: true,
             success: function () {
                 console.log("Invoice updated successfully.");
+                $("#detailsErrorMessage").text("");
             },
             error: function (jqXHR, status) {
                 console.log(jqXHR);
@@ -87,7 +87,7 @@ async function updateInvoice() {
             }
         });        
     } else {
-        $("#detailsErrorMessage").text("Cannot update. Test.");
+        $("#detailsErrorMessage").text("Cannot update. Please check the location ID, the invoice serial and number, the invoice date and the customer name.");
     }
     
 }
