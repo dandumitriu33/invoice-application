@@ -17,9 +17,19 @@
             <h6>Reg. Com.: J12/1023/2019</h6>
             <h6>Adresa: 
                 <span id="locationContainer">
-                    <span id="idLocatie">
-                        @Model.IdLocatie
-                    </span>
+                    @if (Model.IdLocatie != 0)
+                    {
+                        <span id="idLocatie">
+                            @Model.IdLocatie
+                        </span>
+                    }
+                    else
+                    {
+                        <span id="idLocatie">
+                            ...
+                        </span>
+                    }
+
                 </span>
                 - Cireselor 22, Cluj-Napoca, Cluj
             </h6>
@@ -33,17 +43,35 @@
             <h6>
                 Seria: 
                 <span id="invoiceSerialContainer">
-                    <span id="invoiceSerial">
-                        @Model.NumarFactura.Split(' ')[0]
-                    </span>
+                    @if (Model.NumarFactura != null)
+                    {
+                        <span id="invoiceSerial">
+                            @Model.NumarFactura.Split(' ')[0]
+                        </span>
+                    }
+                    else
+                    {
+                        <span id="invoiceSerial">
+                            ...  
+                        </span>
+                    }
                 </span>
             </h6>
             <h6>
                 Numar: 
                 <span id="invoiceNumberContainer">
-                    <span id="invoiceNumber">
-                        @Model.NumarFactura.Split(' ')[1]
-                    </span>
+                    @if (Model.NumarFactura != null)
+                    {
+                        <span id="invoiceNumber">
+                            @Model.NumarFactura.Split(' ')[1]
+                        </span>
+                    }
+                    else
+                    {
+                        <span id="invoiceNumber">
+                            ...
+                        </span>
+                    }
                 </span>
             </h6>
             <h6>
@@ -61,9 +89,18 @@
             <h6>
                 Client: 
                 <span id="customerNameContainer">
-                    <span id="customerName">
-                        @Model.NumeClient
-                    </span>
+                    @if (Model.NumeClient != null)
+                    {
+                        <span id="customerName">
+                            @Model.NumeClient
+                        </span>
+                    }
+                    else
+                    {
+                        <span id="customerName">
+                            ...
+                        </span>
+                    }
                 </span>
             </h6>
             <h6>CUI: 99345678</h6>

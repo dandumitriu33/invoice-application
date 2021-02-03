@@ -44,6 +44,24 @@ namespace InvoiceApplication.API.Controllers
             }
         }
 
+        // POST: api/<InvoicesController>/add-invoice
+        [HttpPost]
+        [Route("add-invoice")]
+        public async Task<IActionResult> AddInvoice(FacturaDTO facturaDTO)
+        {
+            try
+            {
+                Factura newInvoice = _mapper.Map<FacturaDTO, Factura>(facturaDTO);
+                await _repository.AddInvoice(newInvoice);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
+        }
+
         // POST: api/<InvoicesController>/add-invoice-details
         [HttpPost]
         [Route("add-invoice-details")]

@@ -1,6 +1,7 @@
 ﻿import { deleteDetail, updateDetail, updateInvoice, addNewDetails } from "./utils.js";
 
-let EDITDETAILACTIVE = false;
+let editDetailActive = false;
+let newInvoice = false;
 $("#detailsErrorMessage").text("");
 
 // INVOICE HEADER SECTION
@@ -9,11 +10,20 @@ setClickEvents();
 function setClickEvents() {
     // IdLocatie is a composite primary key and cannot be modified 
     // In order to modify the IdLocatie we have to remove the primary key from it
-    //$("#idLocatie").unbind('click');
-    //$("#idLocatie").click(function () {
-    //    console.log("IdLocatie clicked");
-    //    locationSwitchToInput();
-    //});
+    // this mechanism only allows us to add IdLocatie only on new invoices
+    
+    let invoiceId = parseInt($("#idFactura").text());
+    if (invoiceId > 0) {
+        newInvoice = false;
+    } else {
+        newInvoice = true;
+        $("#idLocatie").unbind('click');
+        $("#idLocatie").click(function () {
+            console.log("IdLocatie clicked");
+            locationSwitchToInput();
+        });
+    }
+    
     $("#invoiceSerial").unbind('click');
     $("#invoiceSerial").click(function () {
         console.log("inv seri click");
@@ -248,28 +258,28 @@ function setClickEventsOnDetails() {
                                 </div>
                             </div>
                             `;
-        if (EDITDETAILACTIVE == false) {
-            EDITDETAILACTIVE = true;
+        if (editDetailActive == false) {
+            editDetailActive = true;
             $(this).replaceWith(inputElement);
             $("#" + detailId + "-newProductName").focus();
             $("#" + detailId + "-save").click(function () {
                 console.log("save edited detail clicked");
                 console.log("pre util update detailId: " + detailId.split('-')[0]);
                 updateDetail(detailId);
-                EDITDETAILACTIVE = false;
+                editDetailActive = false;
             });
             $("#" + detailId + "-cancel").click(function () {
                 console.log("cancel edited detail clicked");
                 $("#" + detailId + "-detailContainer").replaceWith(tempThis);
                 setClickEventsOnDetails();
-                EDITDETAILACTIVE = false;
+                editDetailActive = false;
                 $("#detailsErrorMessage").text("");
             });
             $("#" + detailId + "-delete").click(function () {
                 console.log("delete detail clicked");
                 deleteDetail(detailId);
                 setClickEventsOnDetails();
-                EDITDETAILACTIVE = false;
+                editDetailActive = false;
             });
         } else {
             $("#detailsErrorMessage").text("Only one detail can be edited at a time.");
