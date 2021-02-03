@@ -1,4 +1,4 @@
-﻿import { deleteDetail, updateDetail, updateInvoice, addNewDetails } from "./utils.js";
+﻿import { addNewInvoice, deleteDetail, updateDetail, updateInvoice, addNewDetails } from "./utils.js";
 
 let editDetailActive = false;
 let newInvoice = false;
@@ -63,7 +63,11 @@ function customerNameSwitchToInput() {
         let customerNameElement = `<span id="customerName">${newCustomerName}</span>`;
         $("#newCustomerNameInput").remove();
         $("#customerNameContainer").append(customerNameElement);
-        updateInvoice();
+        if (newInvoice == true) {
+            addNewInvoice();
+        } else {
+            updateInvoice();
+        };        
         setClickEvents();
     });
     $("#newCustomerNameInput").blur(function () {
@@ -71,7 +75,11 @@ function customerNameSwitchToInput() {
         let customerNameElement = `<span id="customerName">${newCustomerName}</span>`;
         $("#newCustomerNameInput").remove();
         $("#customerNameContainer").append(customerNameElement);
-        updateInvoice();
+        if (newInvoice == true) {
+            addNewInvoice();
+        } else {
+            updateInvoice();
+        };
         setClickEvents();
     })
 }
@@ -93,7 +101,11 @@ function invoiceDateSwitchToInput() {
         let dateElement = `<span id="invoiceDate">${newDate}</span>`;
         $("#newDateInput").remove();
         $("#invoiceDateContainer").append(dateElement);
-        updateInvoice();
+        if (newInvoice == true) {
+            addNewInvoice();
+        } else {
+            updateInvoice();
+        };
         setClickEvents();
     });
     $("#newDateInput").blur(function () {
@@ -101,7 +113,11 @@ function invoiceDateSwitchToInput() {
         let dateElement = `<span id="invoiceDate">${newDate}</span>`;
         $("#newDateInput").remove();
         $("#invoiceDateContainer").append(dateElement);
-        updateInvoice();
+        if (newInvoice == true) {
+            addNewInvoice();
+        } else {
+            updateInvoice();
+        };
         setClickEvents();
     })
 }
@@ -123,7 +139,11 @@ function invoiceNumberSwitchToInput() {
         let numberElement = `<span id="invoiceNumber">${newNumber}</span>`;
         $("#newNumberInput").remove();
         $("#invoiceNumberContainer").append(numberElement);
-        updateInvoice();
+        if (newInvoice == true) {
+            addNewInvoice();
+        } else {
+            updateInvoice();
+        };
         setClickEvents();
     });
     $("#newNumberInput").blur(function () {
@@ -131,7 +151,11 @@ function invoiceNumberSwitchToInput() {
         let numberElement = `<span id="invoiceNumber">${newNumber}</span>`;
         $("#newNumberInput").remove();
         $("#invoiceNumberContainer").append(numberElement);
-        updateInvoice();
+        if (newInvoice == true) {
+            addNewInvoice();
+        } else {
+            updateInvoice();
+        };
         setClickEvents();
     })
 }
@@ -153,7 +177,11 @@ function invoiceSerialSwitchToInput() {
         let serialElement = `<span id="invoiceSerial">${newSerial}</span>`;
         $("#newSerialInput").remove();
         $("#invoiceSerialContainer").append(serialElement);
-        updateInvoice();
+        if (newInvoice == true) {
+            addNewInvoice();
+        } else {
+            updateInvoice();
+        };
         setClickEvents();
     });
     $("#newSerialInput").blur(function () {
@@ -161,7 +189,11 @@ function invoiceSerialSwitchToInput() {
         let serialElement = `<span id="invoiceSerial">${newSerial}</span>`;
         $("#newSerialInput").remove();
         $("#invoiceSerialContainer").append(serialElement);
-        updateInvoice();
+        if (newInvoice == true) {
+            addNewInvoice();
+        } else {
+            updateInvoice();
+        };
         setClickEvents();
     })
 }
@@ -185,7 +217,7 @@ function locationSwitchToInput() {
                                 `;
         $("#newLocationInput").remove();
         $("#locationContainer").append(locationElement);
-        updateInvoice();
+        addNewInvoice();
         setClickEvents();
     });
     $("#newLocationInput").blur(function () {
@@ -195,7 +227,7 @@ function locationSwitchToInput() {
                                 `;
         $("#newLocationInput").remove();
         $("#locationContainer").append(locationElement);
-        updateInvoice();
+        addNewInvoice();
         setClickEvents();
     })
 };

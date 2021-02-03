@@ -53,7 +53,7 @@ namespace InvoiceApplication.API.Controllers
             {
                 Factura newInvoice = _mapper.Map<FacturaDTO, Factura>(facturaDTO);
                 await _repository.AddInvoice(newInvoice);
-                return Ok();
+                return Ok(newInvoice);
             }
             catch (Exception e)
             {
