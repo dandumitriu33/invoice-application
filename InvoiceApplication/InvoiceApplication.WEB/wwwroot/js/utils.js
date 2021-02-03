@@ -1,4 +1,24 @@
 ﻿
+async function updateDetail(detailId) {
+    console.log("reached update detail in utils");
+    let newProductName = $("#" + detailId + "-newProductName").val();
+    let newQuantity = $("#" + detailId + "-newQuantity").val();
+    let newUnitPrice = $("#" + detailId + "-newUnitPrice").val();
+    let newValue = $("#" + detailId + "-newValue").val();
+    console.log("npn: " + newProductName + " Q: " + newQuantity + " P: " + newUnitPrice + " V: " + newValue);
+
+
+
+    //location.reload(true);
+}
+
+async function deleteDetail(detailId) {
+    console.log("reached delete detail in utils");
+    let newProductName = $("#" + detailId + "-newProductName").val();
+    console.log("deleting npn: " + newProductName);
+    location.reload(true);
+}
+
 async function updateInvoice() {
     let idFactura = parseInt($("#idFactura").text().trim());
     let idLocatie = parseInt($("#idLocatie").text().trim());
@@ -72,4 +92,4 @@ async function addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUn
 
 }
 
-export { updateInvoice, addNewDetails };
+export { deleteDetail, updateDetail, updateInvoice, addNewDetails };

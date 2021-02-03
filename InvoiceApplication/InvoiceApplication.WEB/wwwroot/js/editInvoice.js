@@ -1,4 +1,7 @@
-﻿import { updateInvoice, addNewDetails } from "./utils.js";
+﻿import { deleteDetail, updateDetail, updateInvoice, addNewDetails } from "./utils.js";
+
+let EDITDETAILACTIVE = false;
+$("#detailsErrorMessage").text("");
 
 // INVOICE HEADER SECTION
 setClickEvents();
@@ -188,6 +191,93 @@ function locationSwitchToInput() {
 };
 
 // DETAILS SECTION
+setClickEventsOnDetails();
+
+function setClickEventsOnDetails() {
+    var children = $("#detailsContainer").children();
+    console.log(children);
+    children.unbind('click');
+    children.click(function () {
+        console.log(this.id);
+        let detailId = this.id;
+        let tempThis = this;
+        //let invoicePosition = $("#" + detailId + "-invoicePosition").text();
+        let invoicePosition = this.children[0].textContent.trim();
+        let productName = this.children[1].textContent.trim();
+        let unitType = this.children[2].textContent.trim();
+        let quantity = this.children[3].textContent.trim();
+        let unitPrice = this.children[4].textContent.trim();
+        let value = this.children[5].textContent.trim();
+        let VAT = this.children[6].textContent.trim();
+        let VATValue = this.children[7].textContent.trim();
+        console.log("ip: " + invoicePosition);
+        console.log("pnam: " + productName);
+        console.log("U type: " + unitType);
+        console.log("qty: " + quantity);
+        console.log("u pri: " + unitPrice);
+        console.log("val: " + value);
+        console.log("VAT: " + VAT);
+        console.log("VAT val: " + VATValue);
+        let inputElement = `
+                            <div class="row" id="${detailId}-detailContainer">
+                                <div class="col-1 border text-center">
+                                    <p>${invoicePosition} <a id="${detailId}-delete" class="btn btn-outline-danger btn-sm text-danger">Del</a></p>
+                                </div>
+                                <div class="col-5 border text-center">
+                                    <input id="${detailId}-newProductName" type="text" class="form-control" value="${productName}"/>
+                                    <button id="${detailId}-save" class="btn btn-outline-success btn-sm"> Save </button>
+                                    <button id="${detailId}-cancel" class="btn btn-outline-primary btn-sm"> Cancel </button>
+                                </div>
+                                <div class="col-1 border text-center">
+                                    <p>${unitType}</p>
+                                </div>
+                                <div class="col-1 border text-center">
+                                    <input id="${detailId}-newQuantity" type="text" class="form-control" value="${quantity}"/>
+                                </div>
+                                <div class="col-1 border text-center">
+                                    <input id="${detailId}-newUnitPrice" type="text" class="form-control" value="${unitPrice}"/>
+                                </div>
+                                <div class="col-1 border text-center">
+                                    <input id="${detailId}-newValue" type="text" class="form-control" value="${value}"/>
+                                </div>
+                                <div class="col-1 border text-center">
+                                    <p>${VAT}</p>
+                                </div>
+                                <div class="col-1 border text-center">
+                                    <p>${VATValue}</p>
+                                </div>
+                            </div>
+                            `;
+        if (EDITDETAILACTIVE == false) {
+            EDITDETAILACTIVE = true;
+            $(this).replaceWith(inputElement);
+            $("#" + detailId + "-newProductName").focus();
+            $("#" + detailId + "-save").click(function () {
+                console.log("save edited detail clicked");
+                updateDetail(detailId);
+                EDITDETAILACTIVE = false;
+            });
+            $("#" + detailId + "-cancel").click(function () {
+                console.log("cancel edited detail clicked");
+                $("#" + detailId + "-detailContainer").replaceWith(tempThis);
+                setClickEventsOnDetails();
+                EDITDETAILACTIVE = false;
+                $("#detailsErrorMessage").text("");
+            });
+            $("#" + detailId + "-delete").click(function () {
+                console.log("delete detail clicked");
+                deleteDetail(detailId);
+                setClickEventsOnDetails();
+                EDITDETAILACTIVE = false;
+            });
+        } else {
+            $("#detailsErrorMessage").text("Only one detail can be edited at a time.");
+        }
+        
+        
+    });
+};
+
 $("#addDetailsButton").click(function () {
     console.log("add details clicked");
     populateAddDetailsForm();

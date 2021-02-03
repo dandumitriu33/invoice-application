@@ -75,6 +75,9 @@
         </div>
     </div>
     <br />
+    <div>
+        <p id="detailsErrorMessage" class="text-danger"></p>
+    </div>
     <div class="row">
         <div class="col-1 border text-center">
             <h6>NR.</h6>
@@ -144,30 +147,30 @@
                 subtotal += Model.Detalii[i].Valoare;
                 totalTVA += valoareTVAProdus;
                 totalDePlata += Model.Detalii[i].Valoare + valoareTVAProdus;
-                <div class="row">
+                <div class="row" id="@Model.Detalii[i].IdDetaliiFactura-detailContainer">
                     <div class="col-1 border text-center">
-                        <p>@invoicePosition</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-invoicePosition">@invoicePosition</p>
                     </div>
                     <div class="col-5 border text-center">
-                        <p>@Model.Detalii[i].NumeProdus</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-productName">@Model.Detalii[i].NumeProdus</p>
                     </div>
                     <div class="col-1 border text-center">
-                        <p>buc</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-unitType">buc</p>
                     </div>
                     <div class="col-1 border text-center">
-                        <p>@Model.Detalii[i].Cantitate.ToString("0.00")</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-quantity">@Model.Detalii[i].Cantitate.ToString("0.00")</p>
                     </div>
                     <div class="col-1 border text-center">
-                        <p>@Model.Detalii[i].PretUnitar.ToString("0.00")</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-unitPrice">@Model.Detalii[i].PretUnitar.ToString("0.00")</p>
                     </div>
                     <div class="col-1 border text-center">
-                        <p>@Model.Detalii[i].Valoare.ToString("0.00")</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-value">@Model.Detalii[i].Valoare.ToString("0.00")</p>
                     </div>
                     <div class="col-1 border text-center">
-                        <p>@TVA.ToString("0.00")</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-VAT">@TVA.ToString("0.00")</p>
                     </div>
                     <div class="col-1 border text-center">
-                        <p>@valoareTVAProdus.ToString("0.00")</p>
+                        <p id="@Model.Detalii[i].IdDetaliiFactura-VATValue">@valoareTVAProdus.ToString("0.00")</p>
                     </div>
                 </div>
             }
