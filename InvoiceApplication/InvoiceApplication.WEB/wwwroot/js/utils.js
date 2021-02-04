@@ -1,4 +1,5 @@
-﻿
+﻿import { validateIdLocatie, validateInvoiceNumber, validateInvoiceDate, validateCustomerName } from "./validation.js"
+
 async function updateDetail(detailId) {
     console.log("reached update detail in utils --- detailId: " + detailId);
     let idFactura = parseInt($("#idFactura").text().trim());
@@ -89,7 +90,7 @@ async function updateInvoice() {
     let unprocessedInvoiceDate = $("#invoiceDate").text().trim();
     let invoiceDate = `${unprocessedInvoiceDate.split('.')[2]}-${unprocessedInvoiceDate.split('.')[1]}-${unprocessedInvoiceDate.split('.')[0]}T00:00:00`;
     let customerName = $("#customerName").text().trim();
-    if (invoiceNumber.trim().length > 7 && invoiceDate !== "0001-01-01T00:00:00" && (customerName === "...") == false) {
+    if (validateInvoiceNumber(invoiceNumber) && validateInvoiceDate(invoiceDate) && validateCustomerName(customerName)) {
         $("#detailsErrorMessage").text("Updating invoice. Please wait.");
         $("#detailsErrorMessage").append(`<img id="loadingImage" src="../img/loading.gif" alt="Loading animation image."/>`);
         let data = {
@@ -120,7 +121,17 @@ async function updateInvoice() {
             }
         });        
     } else {
-        $("#detailsErrorMessage").text("Cannot update. Please check the location ID, the invoice serial and number, the invoice date and the customer name.");
+        var validationErrorMessage = "Cannot update invoice. Please check: ";
+        if (validateInvoiceNumber(invoiceNumber) == false) {
+            validationErrorMessage += " Invoice SN";
+        }
+        if (validateInvoiceDate(invoiceDate) == false) {
+            validationErrorMessage += " Invoice Date";
+        }
+        if (validateCustomerName(customerName) == false) {
+            validationErrorMessage += " Customer Name";
+        }
+        $("#detailsErrorMessage").text(validationErrorMessage);
     }
     
 }
@@ -162,14 +173,14 @@ async function addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUn
 async function addNewInvoice() {
     let invoiceId = 0;
     let locationId = parseInt($("#idLocatie").text());
-    let invoiceNumber = $("#invoiceSerial").text().trim() + " " + $("#invoiceNumber").text().trim();
+    let invoiceNumber = $("#invoiceSerial").text().trim().toUpperCase() + " " + $("#invoiceNumber").text().trim();
     let year = $("#invoiceDate").text().trim().split('.')[2];
     let month = $("#invoiceDate").text().trim().split('.')[1];
     let day = $("#invoiceDate").text().trim().split('.')[0];
     let invoiceDate = `${year}-${month}-${day}T00:00:00`;
-    let customerName = $("#customerName").text().trim();
+    let customerName = $("#customerName").text().trim(); 
 
-    if (locationId > 0 && invoiceNumber.trim().length > 7 && invoiceDate !== "0001-01-01T00:00:00" && customerName !== "...") {
+    if (validateIdLocatie(locationId) && validateInvoiceNumber(invoiceNumber) && validateInvoiceDate(invoiceDate) && validateCustomerName(customerName)) {
         $("#detailsErrorMessage").text("Creating new invoice. Please wait.");
         $("#detailsErrorMessage").append(`<img id="loadingImage" src="../img/loading.gif" alt="Loading animation image."/>`);
         let data = {
@@ -200,7 +211,20 @@ async function addNewInvoice() {
             }
         });
     } else {
-        $("#detailsErrorMessage").text("Cannot add new invoice. Please check all fields. NEW");
+        var validationErrorMessage = "Cannot add new invoice. Please check: ";
+        if (validateIdLocatie(locationId) == false) {
+            validationErrorMessage += "Location No";
+        }
+        if (validateInvoiceNumber(invoiceNumber) == false) {
+            validationErrorMessage += " Invoice SN";
+        }
+        if (validateInvoiceDate(invoiceDate) == false) {
+            validationErrorMessage += " Invoice Date";
+        }
+        if (validateCustomerName(customerName) == false) {
+            validationErrorMessage += " Customer Name";
+        }
+        $("#detailsErrorMessage").text(validationErrorMessage);
     }    
 }
 

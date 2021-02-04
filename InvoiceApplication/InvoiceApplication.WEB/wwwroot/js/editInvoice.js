@@ -162,7 +162,7 @@ function invoiceNumberSwitchToInput() {
 
 function invoiceSerialSwitchToInput() {
     console.log("serial switch to input reached");
-    let currentSerial = $("#invoiceSerial").text().trim();
+    let currentSerial = $("#invoiceSerial").text().trim().toUpperCase();
     console.log("c ser: " + currentSerial);
     let serialInputElement = `
                             <span>
@@ -173,7 +173,7 @@ function invoiceSerialSwitchToInput() {
     $("#invoiceSerialContainer").append(serialInputElement);
     $("#newSerialInput").focus();
     $("#newSerialInput").change(function () {
-        let newSerial = $("#newSerialInput").val();
+        let newSerial = $("#newSerialInput").val().toUpperCase();
         let serialElement = `<span id="invoiceSerial">${newSerial}</span>`;
         $("#newSerialInput").remove();
         $("#invoiceSerialContainer").append(serialElement);
@@ -185,7 +185,7 @@ function invoiceSerialSwitchToInput() {
         setClickEvents();
     });
     $("#newSerialInput").blur(function () {
-        let newSerial = $("#newSerialInput").val();
+        let newSerial = $("#newSerialInput").val().toUpperCase();
         let serialElement = `<span id="invoiceSerial">${newSerial}</span>`;
         $("#newSerialInput").remove();
         $("#invoiceSerialContainer").append(serialElement);
