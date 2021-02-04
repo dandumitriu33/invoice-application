@@ -45,7 +45,13 @@ namespace InvoiceApplication.WEB
             {
                 //app.UseDeveloperExceptionPage();
 
-                // 404 page errors
+                // FOR DEMO PURPOSES ONLY - so that we don't switch from dev to prod many times
+                // the following lines would be in the else block
+
+                // general unhandled exception handler
+                app.UseExceptionHandler("/Error");
+
+                // 404 and other codes page errors
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
             }
             else

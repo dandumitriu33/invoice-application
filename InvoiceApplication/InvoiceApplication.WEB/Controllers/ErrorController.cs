@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,6 @@ namespace InvoiceApplication.WEB.Controllers
 {
     public class ErrorController : Controller
     {
-        // GET: /<Controller>/
         [Route("Error/{statusCode}")]
         public IActionResult HttpStatusCodeHandler(int statusCode)
         {
@@ -21,6 +21,14 @@ namespace InvoiceApplication.WEB.Controllers
                     ViewBag.ErrorMessage = statusCode.ToString() + " - That's all we know.";
                     break;
             }
+            return View("Error");
+        }
+
+        [Route("Error")]
+        public IActionResult Error()
+        {
+            var exceptionDetails = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            ViewBag.ErrorMessage = exceptionDetails.Error.Message;
             return View("Error");
         }
     }

@@ -200,6 +200,7 @@ function invoiceSerialSwitchToInput() {
 
 function locationSwitchToInput() {
     console.log("switch to input reached");
+    // replaced by a 0 - leaving ... will display NaN - 0 is a better UI indicator
     let currentLocation = parseInt($("#idLocatie").text().trim());
 
     let locationInputElement = `

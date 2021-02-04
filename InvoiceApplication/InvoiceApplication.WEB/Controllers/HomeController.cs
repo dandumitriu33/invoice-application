@@ -30,6 +30,7 @@ namespace InvoiceApplication.WEB.Controllers
 
         public IActionResult Privacy()
         {
+            throw new Exception("Test exception.");
             return View();
         }
 
