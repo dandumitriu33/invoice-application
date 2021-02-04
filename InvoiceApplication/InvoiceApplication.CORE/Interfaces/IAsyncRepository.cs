@@ -19,5 +19,6 @@ namespace InvoiceApplication.CORE.Interfaces
         Task<DetaliiFactura> EditInvoiceDetail(DetaliiFactura invoiceDetails);
         Task<DetaliiFactura> GetInvoiceDetailById(int detailId);
         Task DeleteInvoiceDetail(DetaliiFactura invoiceDetail);
+        Task DeleteInvoice(Factura invoice);
     }
 }

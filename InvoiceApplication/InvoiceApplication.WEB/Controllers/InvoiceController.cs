@@ -45,8 +45,20 @@ namespace InvoiceApplication.WEB.Controllers
                 return View("EditInvoice", invoice);
             }
             FacturaViewModel newInvoice = new FacturaViewModel();
-            return View("EditInvoice", newInvoice);
-            
+            return View("EditInvoice", newInvoice);            
+        }
+
+        [HttpGet]
+        [Route("deleteinvoice/{invoiceId}")]
+        public async Task<IActionResult> DeleteInvoice(int invoiceId)
+        {
+            Factura invoiceFromDb = await _repository.GetInvoiceById(invoiceId);
+            if (invoiceFromDb != null)
+            {
+                await _repository.DeleteInvoice(invoiceFromDb);
+                return RedirectToAction("AllInvoices");
+            }
+            return RedirectToAction("AllInvoices");
         }
 
         [HttpPost]

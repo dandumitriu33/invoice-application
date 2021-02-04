@@ -112,7 +112,15 @@ namespace InvoiceApplication.INFRASTRUCTURE.Data
             }
         }
 
-
+        public async Task DeleteInvoice(Factura invoice)
+        {
+            Factura facturaFromDb = await _context.Facturi.Where(f => f.IdFactura == invoice.IdFactura).FirstOrDefaultAsync();
+            if (facturaFromDb != null)
+            {
+                _context.Facturi.Remove(facturaFromDb);
+                await _context.SaveChangesAsync();
+            }
+        }
 
 
         private List<DetaliiFactura> generateSeedDetails()

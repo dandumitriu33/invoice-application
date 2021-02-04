@@ -14,6 +14,7 @@
             <th scope="col">Numar Factura</th>
             <th scope="col">Data Factura</th>
             <th scope="col">Nume Client</th>
+            <th scope="col">Sterge</th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +26,7 @@
                 <td><a asp-action="EditInvoice" asp-controller="Invoice" asp-route-invoiceId="@factura.IdFactura">@factura.NumarFactura</a></td>
                 <td>@factura.DataFactura.ToString("dd.MM.yyyy")</td>
                 <td>@factura.NumeClient</td>
+                <td><a asp-action="DeleteInvoice" asp-controller="Invoice" asp-route-invoiceId="@factura.IdFactura" class="btn btn-danger btn-sm">Sterge</a></td>
             </tr>
         }
     </tbody>
