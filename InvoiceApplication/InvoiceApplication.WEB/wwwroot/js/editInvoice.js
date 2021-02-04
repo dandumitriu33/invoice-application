@@ -267,8 +267,8 @@ function setClickEventsOnDetails() {
                                 </div>
                                 <div class="col-5 border text-center">
                                     <input id="${detailId}-newProductName" type="text" class="form-control" value="${productName}"/>
-                                    <button id="${detailId}-save" class="btn btn-outline-success btn-sm"> Save </button>
-                                    <button id="${detailId}-cancel" class="btn btn-outline-primary btn-sm"> Cancel </button>
+                                    <button id="${detailId}-save" class="btn btn-outline-success btn-sm m-2"> Save </button>
+                                    <button id="${detailId}-cancel" class="btn btn-outline-primary btn-sm m-2"> Cancel </button>
                                 </div>
                                 <div class="col-1 border text-center">
                                     <p>${unitType}</p>

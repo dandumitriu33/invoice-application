@@ -42,10 +42,41 @@ async function updateDetail(detailId) {
 }
 
 async function deleteDetail(detailId) {
-    console.log("reached delete detail in utils");
-    let newProductName = $("#" + detailId + "-newProductName").val();
-    console.log("deleting npn: " + newProductName);
-    location.reload(true);
+    let delIdFactura = parseInt($("#idFactura").text().trim());
+    let delIdLocatie = parseInt($("#idLocatie").text().trim());
+    let delProductName = $("#" + detailId + "-newProductName").val();
+    let delQuantity = parseFloat($("#" + detailId + "-newQuantity").val());
+    let delUnitPrice = parseFloat($("#" + detailId + "-newUnitPrice").val());
+    let delValue = parseFloat($("#" + detailId + "-newValue").val());
+
+    let data = {
+        "IdDetaliiFactura": parseInt(detailId.split('-')[0]),
+        "IdLocatie": delIdLocatie,
+        "IdFactura": delIdFactura,
+        "NumeProdus": delProductName,
+        "Cantitate": delQuantity,
+        "PretUnitar": delUnitPrice,
+        "Valoare": delValue
+    }
+
+    let URL = `https://localhost:44317/api/invoices/delete-invoice-detail`;
+
+    var obj = JSON.stringify(data);
+    await $.ajax({
+        type: "DELETE",
+        url: URL,
+        data: obj,
+        contentType: "application/json; charset=utf-8",
+        crossDomain: true,
+        success: function () {
+            console.log("Invoice detail deleted successfully.");  
+        },
+        error: function (jqXHR, status) {
+            console.log(jqXHR);
+            console.log('fail' + status.code);
+        }
+    });
+    location.reload(true);    
 }
 
 async function updateInvoice() {
@@ -155,13 +186,8 @@ async function addNewInvoice() {
             data: obj,
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
-            //success: function () {
-            //    console.log("Invoice added successfully.");
-            //    //window.location.replace(``);
-            //    console.log(response);
-            //},
             success(response) {
-                console.log("IDFACT RESP >>>>>>" + response.idFactura);
+                console.log("Invoice added successfully.");
                 window.location.replace(`https://localhost:44363/editinvoice/${response.idFactura}`);
             },
             error: function (jqXHR, status) {
@@ -169,15 +195,9 @@ async function addNewInvoice() {
                 console.log('fail' + status.code);
             }
         });
-    //location.reload(true);
-    //window.location.replace(``)
     } else {
         $("#detailsErrorMessage").text("Cannot add new invoice. Please check all fields.");
-    }
-
-    
-
-    
+    }    
 }
 
 export { addNewInvoice, deleteDetail, updateDetail, updateInvoice, addNewDetails };
