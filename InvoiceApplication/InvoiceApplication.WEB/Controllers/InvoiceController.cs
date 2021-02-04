@@ -74,6 +74,7 @@ namespace InvoiceApplication.WEB.Controllers
                     return View("EditInvoice", invoice);
                 }
                 FacturaViewModel newInvoice = new FacturaViewModel();
+                newInvoice.IdFactura = 0;
                 return View("EditInvoice", newInvoice);
             }
             catch (Exception ex)
@@ -118,6 +119,10 @@ namespace InvoiceApplication.WEB.Controllers
                         return RedirectToAction("AllInvoices", "Invoice");
                     }
                     Factura invoiceFromDb = await _repository.GetInvoiceById(invoice.IdFactura);
+                    if (invoiceFromDb == null)
+                    {
+                        return RedirectToAction("EditInvoice");
+                    }
                     invoiceFromDb.IdLocatie = invoice.IdLocatie;
                     invoiceFromDb.NumarFactura = invoice.NumarFactura;
                     invoiceFromDb.DataFactura = invoice.DataFactura;

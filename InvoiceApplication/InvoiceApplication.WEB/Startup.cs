@@ -43,7 +43,10 @@ namespace InvoiceApplication.WEB
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
+
+                // 404 page errors
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
             }
             else
             {
