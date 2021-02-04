@@ -77,3 +77,8 @@ body {
 #newSerialInput {
     max-width: 100px;
 }
+
+#loadingImage {
+    min-height: 55px;
+    max-height: 65px;
+}

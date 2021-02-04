@@ -168,6 +168,8 @@ async function addNewInvoice() {
     let customerName = $("#customerName").text().trim();
 
     if (locationId > 0 && invoiceNumber.trim().length > 7 && invoiceDate !== "0001-01-01T00:00:00" && customerName !== "...") {
+        $("#detailsErrorMessage").text("Creating new invoice. Please wait.");
+        $("#detailsErrorMessage").append(`<img id="loadingImage" src="../img/loading.gif" alt="Loading animation image."/>`);
         let data = {
             "IdFactura": invoiceId,
             "IdLocatie": locationId,
@@ -196,7 +198,7 @@ async function addNewInvoice() {
             }
         });
     } else {
-        $("#detailsErrorMessage").text("Cannot add new invoice. Please check all fields.");
+        $("#detailsErrorMessage").text("Cannot add new invoice. Please check all fields. NEW");
     }    
 }
 
