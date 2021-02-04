@@ -1,4 +1,5 @@
 ﻿import { addNewInvoice, deleteDetail, updateDetail, updateInvoice, addNewDetails } from "./utils.js";
+import { validateNumeProdus, validateCantitate, validatePretUnitar, validateValoare } from "./validation.js";
 
 let editDetailActive = false;
 let newInvoice = false;
@@ -394,7 +395,28 @@ function populateAddDetailsForm() {
         let cantitate = $("#newDetailCantitate").val();
         let pretUnitar = $("#newDetailPretUnitar").val();
         let valoare = $("#newDetailValoare").val();
-        addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUnitar, valoare);        
+
+        if (validateNumeProdus(numeProdus) && validateCantitate(cantitate) && validatePretUnitar(pretUnitar) && validateValoare(valoare)) {
+            addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUnitar, valoare);  
+        } else {
+            let errorMessageDetailValidation = "Detail validation failed. Please check: ";
+            if (validateNumeProdus(numeProdus) == false) {
+                errorMessageDetailValidation += "Nume Produs ";
+            };
+            if (validateCantitate(cantitate) == false) {
+                errorMessageDetailValidation += "Cantitate ";
+            };
+            if (validatePretUnitar(pretUnitar) == false) {
+                errorMessageDetailValidation += "Pret Unitar ";
+            };
+            if (validateValoare(valoare) == false) {
+                errorMessageDetailValidation += "Valoare ";
+            };
+            $("#detailsErrorMessage").text(errorMessageDetailValidation);
+        }
+
+
+              
     })
     $("#cancelSaveDetails").click(function () {
         console.log("Cancel Details Clicked");     

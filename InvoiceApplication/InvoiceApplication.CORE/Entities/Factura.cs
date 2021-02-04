@@ -11,8 +11,10 @@ namespace InvoiceApplication.CORE.Entities
         [Column(Order = 1)]
         public int IdFactura { get; set; }
         [Column(Order = 2)]
+        [Range(0, int.MaxValue)]
         public int IdLocatie { get; set; }
         [MaxLength(50)]
+        [RegularExpression(@"^[a-zA-Z]{1,2} \d{6}$")]
         public string NumarFactura { get; set; }
         public DateTime DataFactura { get; set; }
         [MaxLength(200)]

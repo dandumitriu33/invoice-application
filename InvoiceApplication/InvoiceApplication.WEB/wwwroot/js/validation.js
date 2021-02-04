@@ -47,4 +47,39 @@ function validateCustomerName(input){
     }
 }
 
-export { validateIdLocatie, validateInvoiceNumber, validateInvoiceDate, validateCustomerName };
+function validateNumeProdus(numeProdus) {
+    if (numeProdus !== "") {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+function validateCantitate(cantitate) {
+    if (cantitate > 0) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+function validatePretUnitar(pretUnitar) {
+    if (pretUnitar > 0) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+function validateValoare(valoare) {
+    if (valoare > 0) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+export {
+    validateIdLocatie, validateInvoiceNumber, validateInvoiceDate, validateCustomerName,
+    validateNumeProdus, validateCantitate, validatePretUnitar, validateValoare
+};

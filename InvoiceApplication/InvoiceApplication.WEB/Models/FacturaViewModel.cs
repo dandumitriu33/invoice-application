@@ -7,8 +7,9 @@ namespace InvoiceApplication.WEB.Models
     public class FacturaViewModel
     {
         public int IdFactura { get; set; }
+        [Range(0, int.MaxValue)]
         public int IdLocatie { get; set; }
-        [MaxLength(50)]
+        [RegularExpression(@"^[a-zA-Z]{1,2} \d{6}$")]
         public string NumarFactura { get; set; }
         public DateTime DataFactura { get; set; }
         [MaxLength(200)]

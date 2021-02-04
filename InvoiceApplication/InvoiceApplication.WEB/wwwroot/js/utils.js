@@ -1,4 +1,5 @@
 ﻿import { validateIdLocatie, validateInvoiceNumber, validateInvoiceDate, validateCustomerName } from "./validation.js"
+import { validateNumeProdus, validateCantitate, validatePretUnitar, validateValoare } from "./validation.js";
 
 async function updateDetail(detailId) {
     console.log("reached update detail in utils --- detailId: " + detailId);
@@ -10,36 +11,55 @@ async function updateDetail(detailId) {
     let newValue = parseFloat($("#" + detailId + "-newValue").val());
     console.log("npn: " + newProductName + " Q: " + newQuantity + " P: " + newUnitPrice + " V: " + newValue);
 
-    let data = {
-        "IdDetaliiFactura": parseInt(detailId.split('-')[0]),
-        "IdLocatie": idLocatie,
-        "IdFactura": idFactura,
-        "NumeProdus": newProductName,
-        "Cantitate": newQuantity,
-        "PretUnitar": newUnitPrice,
-        "Valoare": newValue
-    }
-    console.log(data);
-    let URL = `https://localhost:44317/api/invoices/update-invoice-detail`;
-
-    var obj = JSON.stringify(data);
-    console.log("obj" + obj);
-    await $.ajax({
-        type: "PUT",
-        url: URL,
-        data: obj,
-        contentType: "application/json; charset=utf-8",
-        crossDomain: true,
-        success: function () {
-            console.log("Invoice detail updated successfully.");
-        },
-        error: function (jqXHR, status) {
-            console.log(jqXHR);
-            console.log('fail' + status.code);
+    if (validateNumeProdus(newProductName) && validateCantitate(newQuantity) && validatePretUnitar(newUnitPrice) && validateValoare(newValue)) {
+        let data = {
+            "IdDetaliiFactura": parseInt(detailId.split('-')[0]),
+            "IdLocatie": idLocatie,
+            "IdFactura": idFactura,
+            "NumeProdus": newProductName,
+            "Cantitate": newQuantity,
+            "PretUnitar": newUnitPrice,
+            "Valoare": newValue
         }
-    });
+        console.log(data);
+        let URL = `https://localhost:44317/api/invoices/update-invoice-detail`;
 
-    location.reload(true);
+        var obj = JSON.stringify(data);
+        console.log("obj" + obj);
+        await $.ajax({
+            type: "PUT",
+            url: URL,
+            data: obj,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            success: function () {
+                console.log("Invoice detail updated successfully.");
+            },
+            error: function (jqXHR, status) {
+                console.log(jqXHR);
+                console.log('fail' + status.code);
+            }
+        });
+
+        location.reload(true);
+    } else {
+        let errorMessageDetailValidation = "Detail validation failed. Please check: ";
+        if (validateNumeProdus(newProductName) == false) {
+            errorMessageDetailValidation += "Nume Produs ";
+        };
+        if (validateCantitate(newQuantity) == false) {
+            errorMessageDetailValidation += "Cantitate ";
+        };
+        if (validatePretUnitar(newUnitPrice) == false) {
+            errorMessageDetailValidation += "Pret Unitar ";
+        };
+        if (validateValoare(newValue) == false) {
+            errorMessageDetailValidation += "Valoare ";
+        };
+        $("#detailsErrorMessage").text(errorMessageDetailValidation);
+    }
+
+    
 }
 
 async function deleteDetail(detailId) {
