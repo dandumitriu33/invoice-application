@@ -90,6 +90,8 @@ async function updateInvoice() {
     let invoiceDate = `${unprocessedInvoiceDate.split('.')[2]}-${unprocessedInvoiceDate.split('.')[1]}-${unprocessedInvoiceDate.split('.')[0]}T00:00:00`;
     let customerName = $("#customerName").text().trim();
     if (invoiceNumber.trim().length > 7 && invoiceDate !== "0001-01-01T00:00:00" && (customerName === "...") == false) {
+        $("#detailsErrorMessage").text("Updating invoice. Please wait.");
+        $("#detailsErrorMessage").append(`<img id="loadingImage" src="../img/loading.gif" alt="Loading animation image."/>`);
         let data = {
             "IdFactura": idFactura,
             "IdLocatie": idLocatie,
