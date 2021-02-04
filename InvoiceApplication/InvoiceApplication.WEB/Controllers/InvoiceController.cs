@@ -31,6 +31,19 @@ namespace InvoiceApplication.WEB.Controllers
             return View("AllInvoices", invoices);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AllInvoices(string searchPhrase)
+        {
+            
+            List<Factura> searchResultsFromDb = await _repository.GetSearchInvoices(searchPhrase);
+            if (searchPhrase == null || searchResultsFromDb.Count <= 0)
+            {
+                return RedirectToAction("AllInvoices");
+            }
+            List<FacturaViewModel> searchResults = _mapper.Map<List<Factura>, List<FacturaViewModel>>(searchResultsFromDb);
+            return View("AllInvoices", searchResults);
+        }
+
         [HttpGet]
         [Route("editinvoice/{invoiceId}")]
         public async Task<IActionResult> EditInvoice(int invoiceId)

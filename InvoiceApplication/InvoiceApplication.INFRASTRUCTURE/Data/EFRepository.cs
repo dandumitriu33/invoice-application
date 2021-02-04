@@ -23,6 +23,11 @@ namespace InvoiceApplication.INFRASTRUCTURE.Data
             return await _context.Facturi.ToListAsync();
         }
 
+        public async Task<List<Factura>> GetSearchInvoices(string searchPhrase)
+        {
+            return await _context.Facturi.Where(f => f.NumarFactura.Contains(searchPhrase) || f.NumeClient.Contains(searchPhrase)).ToListAsync();
+        }
+
         public async Task<Factura> AddInvoice(Factura invoice)
         {
             await _context.Facturi.AddAsync(invoice);

@@ -9,6 +9,7 @@ namespace InvoiceApplication.CORE.Interfaces
     public interface IAsyncRepository
     {
         Task<List<Factura>> GetAllInvoices();
+        Task<List<Factura>> GetSearchInvoices(string searchPhrase);
         Task<Factura> AddInvoice(Factura invoice);
         Task<Factura> GetInvoiceById(int invoiceId);
         Task<Factura> EditInvoice(Factura invoice);
