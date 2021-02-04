@@ -204,7 +204,7 @@ function locationSwitchToInput() {
 
     let locationInputElement = `
                                 <span>
-                                    <input id="newLocationInput" type="text" class="form-control" value="${currentLocation}"/>
+                                    <input id="newLocationInput" type="text" class="form-control" value="0"/>
                                 </span>
                                 `;
     $("#idLocatie").remove();
