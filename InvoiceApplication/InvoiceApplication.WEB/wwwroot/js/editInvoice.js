@@ -234,6 +234,7 @@ function locationSwitchToInput() {
 
 // DETAILS SECTION
 setClickEventsOnDetails();
+setAddDetailsButtonClickEvent();
 
 function setClickEventsOnDetails() {
     var children = $("#detailsContainer").children();
@@ -321,15 +322,19 @@ function setClickEventsOnDetails() {
     });
 };
 
-$("#addDetailsButton").click(function () {
-    console.log("add details clicked");
-    populateAddDetailsForm();
-});
+function setAddDetailsButtonClickEvent() {
+    $("#addDetailsButton").unbind('click');
+    $("#addDetailsButton").click(function () {
+        console.log("add details clicked");
+        populateAddDetailsForm();
+    });
+}
+
 
 function populateAddDetailsForm() {
     console.log("populating details form");
     let element = `
-                    <div class="row">
+                    <div class="row" id="saveCancelInputRow">
                     <div class="col-1 border text-center">
                         
                     </div>
@@ -381,19 +386,41 @@ function populateAddDetailsForm() {
     $("#detailsContainer").append(elementSaveCancel);
     $("#addDetailsButtonRow").remove();
     $("#saveDetails").click(function () {
-        console.log("Save Details Clicked");
-        
+        console.log("Save Details Clicked");        
         let idFactura = $("#idFactura").text();
         let idLocatie = $("#idLocatie").text();
         let numeProdus = $("#newDetailNumeProdus").val();
         let cantitate = $("#newDetailCantitate").val();
         let pretUnitar = $("#newDetailPretUnitar").val();
         let valoare = $("#newDetailValoare").val();
-        addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUnitar, valoare);
-
-        
+        addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUnitar, valoare);        
     })
     $("#cancelSaveDetails").click(function () {
-        console.log("Cancel Save Details Clicked");
+        console.log("Cancel Details Clicked");     
+        let detailsButtonRow = `
+                                <div class="row" id="addDetailsButtonRow">
+                                    <div class="col-1 border text-center">
+                                    </div>
+                                    <div class="col-5 border text-center">
+                                        <button id="addDetailsButton" class="btn btn-outline-primary btn-sm m-1"> + </button>
+                                    </div>
+                                    <div class="col-1 border text-center">
+                                    </div>
+                                    <div class="col-1 border text-center">
+                                    </div>
+                                    <div class="col-1 border text-center">
+                                    </div>
+                                    <div class="col-1 border text-center">
+                                    </div>
+                                    <div class="col-1 border text-center">
+                                    </div>
+                                    <div class="col-1 border text-center">
+                                    </div>
+                                </div>
+                                `;
+        $("#saveCancelInputRow").remove();
+        $("#saveCancelRow").remove();
+        $("#detailsContainer").append(detailsButtonRow);
+        setAddDetailsButtonClickEvent();
     })
 };
