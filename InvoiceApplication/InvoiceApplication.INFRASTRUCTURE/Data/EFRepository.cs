@@ -102,6 +102,16 @@ namespace InvoiceApplication.INFRASTRUCTURE.Data
             return await _context.DetaliiFacturi.Where(df => df.IdDetaliiFactura == detailId).FirstOrDefaultAsync();
         }
 
+        public async Task DeleteInvoiceDetail(DetaliiFactura invoiceDetail)
+        {
+            DetaliiFactura detailFromDb = await _context.DetaliiFacturi.Where(df => df.IdDetaliiFactura == invoiceDetail.IdDetaliiFactura).FirstOrDefaultAsync();
+            if (detailFromDb != null)
+            {
+                _context.DetaliiFacturi.Remove(detailFromDb);
+                await _context.SaveChangesAsync();
+            }
+        }
+
 
 
 

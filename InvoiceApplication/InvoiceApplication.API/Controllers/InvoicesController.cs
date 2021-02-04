@@ -115,5 +115,18 @@ namespace InvoiceApplication.API.Controllers
             return Ok();
         }
 
+        // DELETE: api/<InvoicesController>/delete-invoice-detail
+        [HttpDelete]
+        [Route("delete-invoice-detail")]
+        public async Task<IActionResult> DeleteInvoiceDetail(DetaliiFacturaDTO detaliiFacturaDTO)
+        {
+            DetaliiFactura detailFromDb = await _repository.GetInvoiceDetailById(detaliiFacturaDTO.IdDetaliiFactura);
+            if (detailFromDb == null)
+            {
+                return BadRequest();
+            }
+            await _repository.DeleteInvoiceDetail(detailFromDb);
+            return Ok();
+        }
     }
 }
