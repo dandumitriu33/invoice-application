@@ -28,9 +28,14 @@ namespace InvoiceApplication.WEB.Controllers
             return View();
         }
 
+        public IActionResult Help()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
-            throw new Exception("Test exception.");
+            throw new Exception("Error message: Example catchall for unhandled errors.");
             return View();
         }
 

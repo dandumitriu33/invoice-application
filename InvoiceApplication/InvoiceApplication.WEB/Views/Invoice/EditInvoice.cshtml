@@ -19,7 +19,7 @@
             <h6>Furnizor: S.C. Companie Furnizoare S.R.L.</h6>
             <h6>CUI: 12345678</h6>
             <h6>Reg. Com.: J12/1023/2019</h6>
-            <h6>Adresa: 
+            <h6 id="addressContainer">Adresa: 
                 <span id="locationContainer">
                     @if (Model.IdLocatie != 0)
                     {
@@ -44,7 +44,7 @@
         <div class="col-4 mt-1">
             <h2 class="text-center">FACTURA</h2>
             <p hidden id="idFactura">@Model.IdFactura</p>
-            <h6>
+            <h6 id="serialContainerParent">
                 Seria: 
                 <span id="invoiceSerialContainer">
                     @if (Model.NumarFactura != null)
@@ -61,7 +61,7 @@
                     }
                 </span>
             </h6>
-            <h6>
+            <h6 id="numberContainerParent">
                 Numar: 
                 <span id="invoiceNumberContainer">
                     @if (Model.NumarFactura != null)
@@ -78,7 +78,7 @@
                     }
                 </span>
             </h6>
-            <h6>
+            <h6 id="dateContainerParent">
                 Data: 
                 <span id="invoiceDateContainer">
                     <span id="invoiceDate">
@@ -90,7 +90,7 @@
             <h6>Aviz: </h6>
         </div>
         <div class="col-4 mt-1">
-            <h6>
+            <h6 id="customerNameContainerParent">
                 Client: 
                 <span id="customerNameContainer">
                     @if (Model.NumeClient != null)

@@ -2,15 +2,56 @@
     ViewData["Title"] = "Home Page";
 }
 
+<h2 class="text-center">Welcome</h2>
+<br />
+
 <div class="container">
     <div class="row">
+        <div class="col-12">
+            <p>
+                This is an educational/test project. The Privacy page has an intended error for demo purposes.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <p>
+                The purpose of the application is to use basic CRUD operations on invoices. The invoices
+                are displayed in a list and can be edited or deleted. New invoices (incuding details)
+                can also be added.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <p>
+                The main focus was user experience and data integrity.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-5">
-            <p>Press the Seed button to add 3 invoices and details to the database.</p>
+            <p>
+                Press the Seed button to add 3 invoices and details to the database. Note: If
+                the button is presed after some data has been inserted manually, the seed
+                details might go to the wrong invoices.
+            </p>
         </div>
         <div class="col-3">
             <form method="post" asp-action="SeedData" asp-controller="Home">
                 <button class="btn btn-primary" asp-action="SeedData" asp-controller="Home">Seed data</button>
             </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <p>
+                For more information on how to use the app, please see the Help page.
+            </p>
         </div>
     </div>
 </div>
