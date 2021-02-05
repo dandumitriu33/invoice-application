@@ -2,14 +2,12 @@
 import { validateNumeProdus, validateCantitate, validatePretUnitar, validateValoare } from "./validation.js";
 
 async function updateDetail(detailId) {
-    console.log("reached update detail in utils --- detailId: " + detailId);
     let idFactura = parseInt($("#idFactura").text().trim());
     let idLocatie = parseInt($("#idLocatie").text().trim());
     let newProductName = $("#" + detailId + "-newProductName").val();
     let newQuantity = parseFloat($("#" + detailId + "-newQuantity").val());
     let newUnitPrice = parseFloat($("#" + detailId + "-newUnitPrice").val());
     let newValue = parseFloat($("#" + detailId + "-newValue").val());
-    console.log("npn: " + newProductName + " Q: " + newQuantity + " P: " + newUnitPrice + " V: " + newValue);
 
     if (validateNumeProdus(newProductName) && validateCantitate(newQuantity) && validatePretUnitar(newUnitPrice) && validateValoare(newValue)) {
         $("#detailsErrorMessage").text("Updating detail. Please wait.");
@@ -24,11 +22,9 @@ async function updateDetail(detailId) {
             "PretUnitar": newUnitPrice,
             "Valoare": newValue
         }
-        console.log(data);
         let URL = `https://localhost:44317/api/invoices/update-invoice-detail`;
 
         var obj = JSON.stringify(data);
-        console.log("obj" + obj);
         await $.ajax({
             type: "PUT",
             url: URL,
@@ -36,7 +32,6 @@ async function updateDetail(detailId) {
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             success: function () {
-                console.log("Invoice detail updated successfully.");
             },
             error: function (jqXHR, status) {
                 console.log(jqXHR);
@@ -60,9 +55,7 @@ async function updateDetail(detailId) {
             errorMessageDetailValidation += "Valoare ";
         };
         $("#detailsErrorMessage").text(errorMessageDetailValidation);
-    }
-
-    
+    }    
 }
 
 async function deleteDetail(detailId) {
@@ -93,7 +86,6 @@ async function deleteDetail(detailId) {
         contentType: "application/json; charset=utf-8",
         crossDomain: true,
         success: function () {
-            console.log("Invoice detail deleted successfully.");  
         },
         error: function (jqXHR, status) {
             console.log(jqXHR);
@@ -104,11 +96,8 @@ async function deleteDetail(detailId) {
 }
 
 async function updateInvoice() {
-    console.log("Entered UPDATE");
     let idFactura = parseInt($("#idFactura").text().trim());
     let idLocatie = parseInt($("#idLocatie").text().trim());
-    //let invoiceSerial = $("#invoiceSerial").text().trim();
-    //let invoiceNumber = $("#invoiceNumber").text().trim();
     let invoiceNumber = $("#invoiceSerial").text().trim() + " " + $("#invoiceNumber").text().trim();
     let unprocessedInvoiceDate = $("#invoiceDate").text().trim();
     let invoiceDate = `${unprocessedInvoiceDate.split('.')[2]}-${unprocessedInvoiceDate.split('.')[1]}-${unprocessedInvoiceDate.split('.')[0]}T00:00:00`;
@@ -123,11 +112,9 @@ async function updateInvoice() {
             "DataFactura": invoiceDate,
             "NumeClient": customerName
         }
-        console.log(data);
         let URL = `https://localhost:44317/api/invoices/update-invoice`;
 
         var obj = JSON.stringify(data);
-        console.log("obj" + obj);
         await $.ajax({
             type: "PUT",
             url: URL,
@@ -135,7 +122,6 @@ async function updateInvoice() {
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             success: function () {
-                console.log("Invoice updated successfully.");
                 $("#detailsErrorMessage").text("");
             },
             error: function (jqXHR, status) {
@@ -155,13 +141,10 @@ async function updateInvoice() {
             validationErrorMessage += " Customer Name";
         }
         $("#detailsErrorMessage").text(validationErrorMessage);
-    }
-    
+    };    
 }
 
 async function addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUnitar, valoare) {
-    console.log("idFactura " + idFactura + " idLocatie " + idLocatie + " nume: " + numeProdus + " cant: " + cantitate + " pretUnit: " + pretUnitar + " valoare: " + valoare);
-
     let data = {
         "IdDetaliiFactura": 0,
         "IdLocatie": parseInt(idLocatie),
@@ -171,11 +154,9 @@ async function addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUn
         "PretUnitar": parseFloat(pretUnitar),
         "Valoare": parseFloat(valoare)
     };
-
     let URL = `https://localhost:44317/api/invoices/add-invoice-details`;
 
     var obj = JSON.stringify(data);
-    console.log("obj" + obj);
     await $.ajax({
         type: "POST",
         url: URL,
@@ -183,7 +164,6 @@ async function addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUn
         contentType: "application/json; charset=utf-8",
         crossDomain: true,
         success: function () {
-            console.log("Details added successfully.");
         },
         error: function (jqXHR, status) {
             console.log(jqXHR);
@@ -213,11 +193,9 @@ async function addNewInvoice() {
             "DataFactura": invoiceDate,
             "NumeClient": customerName
         };
-
         let URL = `https://localhost:44317/api/invoices/add-invoice`;
 
         var obj = JSON.stringify(data);
-        console.log("obj" + obj);
         await $.ajax({
             type: "POST",
             url: URL,
@@ -225,7 +203,6 @@ async function addNewInvoice() {
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             success(response) {
-                console.log("Invoice added successfully.");
                 window.location.replace(`https://localhost:44363/editinvoice/${response.idFactura}`);
             },
             error: function (jqXHR, status) {

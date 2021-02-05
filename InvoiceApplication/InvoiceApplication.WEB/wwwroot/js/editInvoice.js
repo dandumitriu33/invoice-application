@@ -71,9 +71,7 @@ function setClickEvents() {
 }
 
 function customerNameSwitchToInput() {
-    console.log("c name switch to input reached");
     let currentCustomerName = $("#customerName").text().trim();
-    console.log("c name: " + currentCustomerName);
     let customerNameInputElement = `
                                     <span>
                                         <input id="newCustomerNameInput" type="text" class="form-control" value="${currentCustomerName}"/>
@@ -109,9 +107,7 @@ function customerNameSwitchToInput() {
 }
 
 function invoiceDateSwitchToInput() {
-    console.log("date invo switch to input reached");
     let currentDate = $("#invoiceDate").text().trim();
-    console.log("c date: " + currentDate);
     let dateInputElement = `
                             <span>
                                 <input id="newDateInput" type="text" class="form-control" value="${currentDate}"/>
@@ -147,9 +143,7 @@ function invoiceDateSwitchToInput() {
 }
 
 function invoiceNumberSwitchToInput() {
-    console.log("num invo switch to input reached");
     let currentNumber = $("#invoiceNumber").text().trim();
-    console.log("c num: " + currentNumber);
     let numberInputElement = `
                             <span>
                                 <input id="newNumberInput" type="text" class="form-control" value="${currentNumber}"/>
@@ -185,9 +179,7 @@ function invoiceNumberSwitchToInput() {
 }
 
 function invoiceSerialSwitchToInput() {
-    console.log("serial switch to input reached");
     let currentSerial = $("#invoiceSerial").text().trim().toUpperCase();
-    console.log("c ser: " + currentSerial);
     let serialInputElement = `
                             <span>
                                 <input id="newSerialInput" type="text" class="form-control" value="${currentSerial}"/>
@@ -222,14 +214,10 @@ function invoiceSerialSwitchToInput() {
     })
 }
 
-function locationSwitchToInput() {
-    console.log("switch to input reached");
-    // replaced by a 0 - leaving ... will display NaN - 0 is a better UI indicator
-    let currentLocation = parseInt($("#idLocatie").text().trim());
-
+function locationSwitchToInput() {    
     let locationInputElement = `
                                 <span>
-                                    <input id="newLocationInput" type="text" class="form-control" value="0"/>
+                                    <input id="newLocationInput" type="text" class="form-control" value=""/>
                                 </span>
                                 `;
     $("#idLocatie").remove();
@@ -263,13 +251,10 @@ setAddDetailsButtonClickEvent();
 
 function setClickEventsOnDetails() {
     var children = $("#detailsContainer").children();
-    console.log(children);
     children.unbind('click');
     children.click(function () {
-        console.log(this.id);
         let detailId = this.id;
         let tempThis = this;
-        //let invoicePosition = $("#" + detailId + "-invoicePosition").text();
         let invoicePosition = this.children[0].textContent.trim();
         let productName = this.children[1].textContent.trim();
         let unitType = this.children[2].textContent.trim();
@@ -278,14 +263,6 @@ function setClickEventsOnDetails() {
         let value = this.children[5].textContent.trim();
         let VAT = this.children[6].textContent.trim();
         let VATValue = this.children[7].textContent.trim();
-        console.log("ip: " + invoicePosition);
-        console.log("pnam: " + productName);
-        console.log("U type: " + unitType);
-        console.log("qty: " + quantity);
-        console.log("u pri: " + unitPrice);
-        console.log("val: " + value);
-        console.log("VAT: " + VAT);
-        console.log("VAT val: " + VATValue);
         let inputElement = `
                             <div class="row" id="${detailId}-detailContainer">
                                 <div class="col-1 border text-center">
@@ -321,43 +298,34 @@ function setClickEventsOnDetails() {
             $(this).replaceWith(inputElement);
             $("#" + detailId + "-newProductName").focus();
             $("#" + detailId + "-save").click(function () {
-                console.log("save edited detail clicked");
-                console.log("pre util update detailId: " + detailId.split('-')[0]);
                 updateDetail(detailId);
                 editDetailActive = false;
             });
             $("#" + detailId + "-cancel").click(function () {
-                console.log("cancel edited detail clicked");
                 $("#" + detailId + "-detailContainer").replaceWith(tempThis);
                 setClickEventsOnDetails();
                 editDetailActive = false;
                 $("#detailsErrorMessage").text("");
             });
             $("#" + detailId + "-delete").click(function () {
-                console.log("delete detail clicked");
                 deleteDetail(detailId);
                 setClickEventsOnDetails();
                 editDetailActive = false;
             });
         } else {
             $("#detailsErrorMessage").text("Only one detail can be edited at a time.");
-        }
-        
-        
+        };     
     });
 };
 
 function setAddDetailsButtonClickEvent() {
     $("#addDetailsButton").unbind('click');
     $("#addDetailsButton").click(function () {
-        console.log("add details clicked");
         populateAddDetailsForm();
     });
-}
-
+};
 
 function populateAddDetailsForm() {
-    console.log("populating details form");
     let element = `
                     <div class="row" id="saveCancelInputRow">
                     <div class="col-1 border text-center">
@@ -411,7 +379,6 @@ function populateAddDetailsForm() {
     $("#detailsContainer").append(elementSaveCancel);
     $("#addDetailsButtonRow").remove();
     $("#saveDetails").click(function () {
-        console.log("Save Details Clicked");
         let idFactura = $("#idFactura").text();
         let idLocatie = $("#idLocatie").text();
         let numeProdus = $("#newDetailNumeProdus").val();
@@ -441,7 +408,6 @@ function populateAddDetailsForm() {
         }
     });
     $("#cancelSaveDetails").click(function () {
-        console.log("Cancel Details Clicked");
         let detailsButtonRow = `
                                 <div class="row" id="addDetailsButtonRow">
                                     <div class="col-1 border text-center">

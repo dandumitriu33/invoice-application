@@ -30,7 +30,7 @@ namespace InvoiceApplication.WEB.Controllers
 
         public IActionResult Privacy()
         {
-            throw new Exception("Test exception.");
+            throw new Exception("Error message: Example catchall for unhandled errors.");
             return View();
         }
 
