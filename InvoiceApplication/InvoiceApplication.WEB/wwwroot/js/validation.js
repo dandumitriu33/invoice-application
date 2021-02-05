@@ -1,6 +1,6 @@
 ﻿
 function validateIdLocatie(input) {
-    if (Number.isInteger(input) && input > 0) {
+    if (Number.isInteger(input) && input >= 0) {
         console.log("idloc valid");
         return true;
     } else {

@@ -19,30 +19,53 @@ function setClickEvents() {
     } else {
         newInvoice = true;
         $("#idLocatie").unbind('click');
+        $("#addressContainer").unbind('click');
         $("#idLocatie").click(function () {
-            console.log("IdLocatie clicked");
+            $("#addressContainer").unbind('click');
+            locationSwitchToInput();
+        });
+        $("#addressContainer").click(function () {
             locationSwitchToInput();
         });
     }
     
     $("#invoiceSerial").unbind('click');
+    $("#serialContainerParent").unbind('click');
     $("#invoiceSerial").click(function () {
-        console.log("inv seri click");
+        $("#serialContainerParent").unbind('click');
         invoiceSerialSwitchToInput();
     });
+    $("#serialContainerParent").click(function () {
+        invoiceSerialSwitchToInput();
+    });
+
     $("#invoiceNumber").unbind('click');
+    $("#numberContainerParent").unbind('click');
     $("#invoiceNumber").click(function () {
-        console.log("inv num click");
+        $("#numberContainerParent").unbind('click');
         invoiceNumberSwitchToInput();
     });
+    $("#numberContainerParent").click(function () {
+        invoiceNumberSwitchToInput();
+    });
+
     $("#invoiceDate").unbind('click');
+    $("#dateContainerParent").unbind('click');
     $("#invoiceDate").click(function () {
-        console.log("inv date click");
+        $("#dateContainerParent").unbind('click');
         invoiceDateSwitchToInput();
     });
+    $("#dateContainerParent").click(function () {
+        invoiceDateSwitchToInput();
+    });
+
     $("#customerName").unbind('click');
+    $("#customerNameContainerParent").unbind('click');
     $("#customerName").click(function () {
-        console.log("c name click");
+        $("#customerNameContainerParent").unbind('click');
+        customerNameSwitchToInput();
+    });
+    $("#customerNameContainerParent").click(function () {
         customerNameSwitchToInput();
     });
 }
@@ -213,7 +236,7 @@ function locationSwitchToInput() {
     $("#locationContainer").append(locationInputElement);
     $("#newLocationInput").focus();
     $("#newLocationInput").change(function () {
-        let newLocationId = $("#newLocationInput").val();
+        let newLocationId = $("#newLocationInput").val();        
         let locationElement = `
                                 <span id="idLocatie">${newLocationId}</span>
                                 `;
