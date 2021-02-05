@@ -30,18 +30,27 @@ namespace InvoiceApplication.WEB.Controllers
 
         public IActionResult Privacy()
         {
+            throw new Exception("Test exception.");
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> SeedData()
         {
-            List<Factura> firstInvoices = await _repository.GetFirstInvoices();
-            if (firstInvoices.Count <= 0)
+            try
             {
-                await _repository.SeedDbData();
+                List<Factura> firstInvoices = await _repository.GetFirstInvoices();
+                if (firstInvoices.Count <= 0)
+                {
+                    await _repository.SeedDbData();
+                }
+                return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("Index", "Home");
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

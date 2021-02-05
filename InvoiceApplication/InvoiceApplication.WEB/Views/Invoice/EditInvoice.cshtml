@@ -8,6 +8,10 @@
     decimal TVA = 19.0M;
 }
 
+@if (Model.IdFactura == 0)
+{
+    <h2 class="text-center">NEW INVOICE</h2>    
+}
 
 <div class="container">
     <div class="row border">
@@ -214,26 +218,29 @@
         }
     </div>
 
-
-    <div class="row" id="addDetailsButtonRow">
-        <div class="col-1 border text-center">
+    @if (Model.IdFactura > 0)
+	{
+        <div class="row" id="addDetailsButtonRow">
+            <div class="col-1 border text-center">
+            </div>
+            <div class="col-5 border text-center">
+                <button id="addDetailsButton" class="btn btn-outline-primary btn-sm m-1"> + </button>
+            </div>
+            <div class="col-1 border text-center">
+            </div>
+            <div class="col-1 border text-center">
+            </div>
+            <div class="col-1 border text-center">
+            </div>
+            <div class="col-1 border text-center">
+            </div>
+            <div class="col-1 border text-center">
+            </div>
+            <div class="col-1 border text-center">
+            </div>
         </div>
-        <div class="col-5 border text-center">
-            <button id="addDetailsButton" class="btn btn-outline-primary btn-sm m-1"> + </button>
-        </div>
-        <div class="col-1 border text-center">
-        </div>
-        <div class="col-1 border text-center">
-        </div>
-        <div class="col-1 border text-center">
-        </div>
-        <div class="col-1 border text-center">
-        </div>
-        <div class="col-1 border text-center">
-        </div>
-        <div class="col-1 border text-center">
-        </div>
-    </div>
+	}
+    
     <div class="row">
         <div class="col-12 border">
             <p class="m-0 font-weight-bold">OBSERVATII:</p>
@@ -327,5 +334,6 @@
 @section Scripts {
     <script type="module" src="~/js/editInvoice.js"></script>
     <script type="module" src="~/js/utils.js"></script>
+    <script type="module" src="~/js/validation.js"></script>
     @*@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }*@
 }

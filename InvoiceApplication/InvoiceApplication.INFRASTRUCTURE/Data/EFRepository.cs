@@ -23,6 +23,11 @@ namespace InvoiceApplication.INFRASTRUCTURE.Data
             return await _context.Facturi.ToListAsync();
         }
 
+        public async Task<List<Factura>> GetSearchInvoices(string searchPhrase)
+        {
+            return await _context.Facturi.Where(f => f.NumarFactura.Contains(searchPhrase) || f.NumeClient.Contains(searchPhrase)).ToListAsync();
+        }
+
         public async Task<Factura> AddInvoice(Factura invoice)
         {
             await _context.Facturi.AddAsync(invoice);
@@ -102,7 +107,25 @@ namespace InvoiceApplication.INFRASTRUCTURE.Data
             return await _context.DetaliiFacturi.Where(df => df.IdDetaliiFactura == detailId).FirstOrDefaultAsync();
         }
 
+        public async Task DeleteInvoiceDetail(DetaliiFactura invoiceDetail)
+        {
+            DetaliiFactura detailFromDb = await _context.DetaliiFacturi.Where(df => df.IdDetaliiFactura == invoiceDetail.IdDetaliiFactura).FirstOrDefaultAsync();
+            if (detailFromDb != null)
+            {
+                _context.DetaliiFacturi.Remove(detailFromDb);
+                await _context.SaveChangesAsync();
+            }
+        }
 
+        public async Task DeleteInvoice(Factura invoice)
+        {
+            Factura facturaFromDb = await _context.Facturi.Where(f => f.IdFactura == invoice.IdFactura).FirstOrDefaultAsync();
+            if (facturaFromDb != null)
+            {
+                _context.Facturi.Remove(facturaFromDb);
+                await _context.SaveChangesAsync();
+            }
+        }
 
 
         private List<DetaliiFactura> generateSeedDetails()

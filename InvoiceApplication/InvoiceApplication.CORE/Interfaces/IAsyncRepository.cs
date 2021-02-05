@@ -9,6 +9,7 @@ namespace InvoiceApplication.CORE.Interfaces
     public interface IAsyncRepository
     {
         Task<List<Factura>> GetAllInvoices();
+        Task<List<Factura>> GetSearchInvoices(string searchPhrase);
         Task<Factura> AddInvoice(Factura invoice);
         Task<Factura> GetInvoiceById(int invoiceId);
         Task<Factura> EditInvoice(Factura invoice);
@@ -18,5 +19,7 @@ namespace InvoiceApplication.CORE.Interfaces
         Task SeedDbData();
         Task<DetaliiFactura> EditInvoiceDetail(DetaliiFactura invoiceDetails);
         Task<DetaliiFactura> GetInvoiceDetailById(int detailId);
+        Task DeleteInvoiceDetail(DetaliiFactura invoiceDetail);
+        Task DeleteInvoice(Factura invoice);
     }
 }

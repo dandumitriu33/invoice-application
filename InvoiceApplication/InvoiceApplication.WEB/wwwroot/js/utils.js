@@ -1,4 +1,6 @@
-﻿
+﻿import { validateIdLocatie, validateInvoiceNumber, validateInvoiceDate, validateCustomerName } from "./validation.js"
+import { validateNumeProdus, validateCantitate, validatePretUnitar, validateValoare } from "./validation.js";
+
 async function updateDetail(detailId) {
     console.log("reached update detail in utils --- detailId: " + detailId);
     let idFactura = parseInt($("#idFactura").text().trim());
@@ -9,43 +11,93 @@ async function updateDetail(detailId) {
     let newValue = parseFloat($("#" + detailId + "-newValue").val());
     console.log("npn: " + newProductName + " Q: " + newQuantity + " P: " + newUnitPrice + " V: " + newValue);
 
+    if (validateNumeProdus(newProductName) && validateCantitate(newQuantity) && validatePretUnitar(newUnitPrice) && validateValoare(newValue)) {
+        let data = {
+            "IdDetaliiFactura": parseInt(detailId.split('-')[0]),
+            "IdLocatie": idLocatie,
+            "IdFactura": idFactura,
+            "NumeProdus": newProductName,
+            "Cantitate": newQuantity,
+            "PretUnitar": newUnitPrice,
+            "Valoare": newValue
+        }
+        console.log(data);
+        let URL = `https://localhost:44317/api/invoices/update-invoice-detail`;
+
+        var obj = JSON.stringify(data);
+        console.log("obj" + obj);
+        await $.ajax({
+            type: "PUT",
+            url: URL,
+            data: obj,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            success: function () {
+                console.log("Invoice detail updated successfully.");
+            },
+            error: function (jqXHR, status) {
+                console.log(jqXHR);
+                console.log('fail' + status.code);
+            }
+        });
+
+        location.reload(true);
+    } else {
+        let errorMessageDetailValidation = "Detail validation failed. Please check: ";
+        if (validateNumeProdus(newProductName) == false) {
+            errorMessageDetailValidation += "Nume Produs ";
+        };
+        if (validateCantitate(newQuantity) == false) {
+            errorMessageDetailValidation += "Cantitate ";
+        };
+        if (validatePretUnitar(newUnitPrice) == false) {
+            errorMessageDetailValidation += "Pret Unitar ";
+        };
+        if (validateValoare(newValue) == false) {
+            errorMessageDetailValidation += "Valoare ";
+        };
+        $("#detailsErrorMessage").text(errorMessageDetailValidation);
+    }
+
+    
+}
+
+async function deleteDetail(detailId) {
+    let delIdFactura = parseInt($("#idFactura").text().trim());
+    let delIdLocatie = parseInt($("#idLocatie").text().trim());
+    let delProductName = $("#" + detailId + "-newProductName").val();
+    let delQuantity = parseFloat($("#" + detailId + "-newQuantity").val());
+    let delUnitPrice = parseFloat($("#" + detailId + "-newUnitPrice").val());
+    let delValue = parseFloat($("#" + detailId + "-newValue").val());
+
     let data = {
         "IdDetaliiFactura": parseInt(detailId.split('-')[0]),
-        "IdLocatie": idLocatie,
-        "IdFactura": idFactura,
-        "NumeProdus": newProductName,
-        "Cantitate": newQuantity,
-        "PretUnitar": newUnitPrice,
-        "Valoare": newValue
+        "IdLocatie": delIdLocatie,
+        "IdFactura": delIdFactura,
+        "NumeProdus": delProductName,
+        "Cantitate": delQuantity,
+        "PretUnitar": delUnitPrice,
+        "Valoare": delValue
     }
-    console.log(data);
-    let URL = `https://localhost:44317/api/invoices/update-invoice-detail`;
+
+    let URL = `https://localhost:44317/api/invoices/delete-invoice-detail`;
 
     var obj = JSON.stringify(data);
-    console.log("obj" + obj);
     await $.ajax({
-        type: "PUT",
+        type: "DELETE",
         url: URL,
         data: obj,
         contentType: "application/json; charset=utf-8",
         crossDomain: true,
         success: function () {
-            console.log("Invoice detail updated successfully.");
+            console.log("Invoice detail deleted successfully.");  
         },
         error: function (jqXHR, status) {
             console.log(jqXHR);
             console.log('fail' + status.code);
         }
     });
-
-    location.reload(true);
-}
-
-async function deleteDetail(detailId) {
-    console.log("reached delete detail in utils");
-    let newProductName = $("#" + detailId + "-newProductName").val();
-    console.log("deleting npn: " + newProductName);
-    location.reload(true);
+    location.reload(true);    
 }
 
 async function updateInvoice() {
@@ -58,7 +110,9 @@ async function updateInvoice() {
     let unprocessedInvoiceDate = $("#invoiceDate").text().trim();
     let invoiceDate = `${unprocessedInvoiceDate.split('.')[2]}-${unprocessedInvoiceDate.split('.')[1]}-${unprocessedInvoiceDate.split('.')[0]}T00:00:00`;
     let customerName = $("#customerName").text().trim();
-    if (invoiceNumber.trim().length > 7 && invoiceDate !== "0001-01-01T00:00:00" && (customerName === "...") == false) {
+    if (validateInvoiceNumber(invoiceNumber) && validateInvoiceDate(invoiceDate) && validateCustomerName(customerName)) {
+        $("#detailsErrorMessage").text("Updating invoice. Please wait.");
+        $("#detailsErrorMessage").append(`<img id="loadingImage" src="../img/loading.gif" alt="Loading animation image."/>`);
         let data = {
             "IdFactura": idFactura,
             "IdLocatie": idLocatie,
@@ -87,7 +141,17 @@ async function updateInvoice() {
             }
         });        
     } else {
-        $("#detailsErrorMessage").text("Cannot update. Please check the location ID, the invoice serial and number, the invoice date and the customer name.");
+        var validationErrorMessage = "Cannot update invoice. Please check: ";
+        if (validateInvoiceNumber(invoiceNumber) == false) {
+            validationErrorMessage += " Invoice SN";
+        }
+        if (validateInvoiceDate(invoiceDate) == false) {
+            validationErrorMessage += " Invoice Date";
+        }
+        if (validateCustomerName(customerName) == false) {
+            validationErrorMessage += " Customer Name";
+        }
+        $("#detailsErrorMessage").text(validationErrorMessage);
     }
     
 }
@@ -129,14 +193,16 @@ async function addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUn
 async function addNewInvoice() {
     let invoiceId = 0;
     let locationId = parseInt($("#idLocatie").text());
-    let invoiceNumber = $("#invoiceSerial").text().trim() + " " + $("#invoiceNumber").text().trim();
+    let invoiceNumber = $("#invoiceSerial").text().trim().toUpperCase() + " " + $("#invoiceNumber").text().trim();
     let year = $("#invoiceDate").text().trim().split('.')[2];
     let month = $("#invoiceDate").text().trim().split('.')[1];
     let day = $("#invoiceDate").text().trim().split('.')[0];
     let invoiceDate = `${year}-${month}-${day}T00:00:00`;
-    let customerName = $("#customerName").text().trim();
+    let customerName = $("#customerName").text().trim(); 
 
-    if (locationId > 0 && invoiceNumber.trim().length > 7 && invoiceDate !== "0001-01-01T00:00:00" && customerName !== "...") {
+    if (validateIdLocatie(locationId) && validateInvoiceNumber(invoiceNumber) && validateInvoiceDate(invoiceDate) && validateCustomerName(customerName)) {
+        $("#detailsErrorMessage").text("Creating new invoice. Please wait.");
+        $("#detailsErrorMessage").append(`<img id="loadingImage" src="../img/loading.gif" alt="Loading animation image."/>`);
         let data = {
             "IdFactura": invoiceId,
             "IdLocatie": locationId,
@@ -155,13 +221,8 @@ async function addNewInvoice() {
             data: obj,
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
-            //success: function () {
-            //    console.log("Invoice added successfully.");
-            //    //window.location.replace(``);
-            //    console.log(response);
-            //},
             success(response) {
-                console.log("IDFACT RESP >>>>>>" + response.idFactura);
+                console.log("Invoice added successfully.");
                 window.location.replace(`https://localhost:44363/editinvoice/${response.idFactura}`);
             },
             error: function (jqXHR, status) {
@@ -169,15 +230,22 @@ async function addNewInvoice() {
                 console.log('fail' + status.code);
             }
         });
-    //location.reload(true);
-    //window.location.replace(``)
     } else {
-        $("#detailsErrorMessage").text("Cannot add new invoice. Please check all fields.");
-    }
-
-    
-
-    
+        var validationErrorMessage = "Cannot add new invoice. Please check: ";
+        if (validateIdLocatie(locationId) == false) {
+            validationErrorMessage += "Location No";
+        }
+        if (validateInvoiceNumber(invoiceNumber) == false) {
+            validationErrorMessage += " Invoice SN";
+        }
+        if (validateInvoiceDate(invoiceDate) == false) {
+            validationErrorMessage += " Invoice Date";
+        }
+        if (validateCustomerName(customerName) == false) {
+            validationErrorMessage += " Customer Name";
+        }
+        $("#detailsErrorMessage").text(validationErrorMessage);
+    }    
 }
 
 export { addNewInvoice, deleteDetail, updateDetail, updateInvoice, addNewDetails };
