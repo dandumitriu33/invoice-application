@@ -50,6 +50,7 @@ namespace InvoiceApplication.WEB.Controllers
                     return RedirectToAction("AllInvoices");
                 }
                 List<FacturaViewModel> searchResults = _mapper.Map<List<Factura>, List<FacturaViewModel>>(searchResultsFromDb);
+                ViewBag.SearchMessage = $"Displaying results for '{searchPhrase}'.";
                 return View("AllInvoices", searchResults);
             }
             catch (Exception ex)

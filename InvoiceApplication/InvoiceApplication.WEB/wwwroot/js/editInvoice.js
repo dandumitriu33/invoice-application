@@ -411,7 +411,7 @@ function populateAddDetailsForm() {
     $("#detailsContainer").append(elementSaveCancel);
     $("#addDetailsButtonRow").remove();
     $("#saveDetails").click(function () {
-        console.log("Save Details Clicked");        
+        console.log("Save Details Clicked");
         let idFactura = $("#idFactura").text();
         let idLocatie = $("#idLocatie").text();
         let numeProdus = $("#newDetailNumeProdus").val();
@@ -420,7 +420,9 @@ function populateAddDetailsForm() {
         let valoare = $("#newDetailValoare").val();
 
         if (validateNumeProdus(numeProdus) && validateCantitate(cantitate) && validatePretUnitar(pretUnitar) && validateValoare(valoare)) {
-            addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUnitar, valoare);  
+            $("#detailsErrorMessage").text("Adding new detail. Please wait.");
+            $("#detailsErrorMessage").append(`<img id="loadingImage" src="../img/loading.gif" alt="Loading animation image."/>`);
+            addNewDetails(idFactura, idLocatie, numeProdus, cantitate, pretUnitar, valoare);
         } else {
             let errorMessageDetailValidation = "Detail validation failed. Please check: ";
             if (validateNumeProdus(numeProdus) == false) {
@@ -437,12 +439,9 @@ function populateAddDetailsForm() {
             };
             $("#detailsErrorMessage").text(errorMessageDetailValidation);
         }
-
-
-              
-    })
+    });
     $("#cancelSaveDetails").click(function () {
-        console.log("Cancel Details Clicked");     
+        console.log("Cancel Details Clicked");
         let detailsButtonRow = `
                                 <div class="row" id="addDetailsButtonRow">
                                     <div class="col-1 border text-center">
@@ -468,5 +467,5 @@ function populateAddDetailsForm() {
         $("#saveCancelRow").remove();
         $("#detailsContainer").append(detailsButtonRow);
         setAddDetailsButtonClickEvent();
-    })
+    });
 };

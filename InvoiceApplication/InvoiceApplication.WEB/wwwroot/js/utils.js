@@ -12,6 +12,9 @@ async function updateDetail(detailId) {
     console.log("npn: " + newProductName + " Q: " + newQuantity + " P: " + newUnitPrice + " V: " + newValue);
 
     if (validateNumeProdus(newProductName) && validateCantitate(newQuantity) && validatePretUnitar(newUnitPrice) && validateValoare(newValue)) {
+        $("#detailsErrorMessage").text("Updating detail. Please wait.");
+        $("#detailsErrorMessage").append(`<img id="loadingImage" src="../img/loading.gif" alt="Loading animation image."/>`);
+        //await new Promise(r => setTimeout(r, 2000));
         let data = {
             "IdDetaliiFactura": parseInt(detailId.split('-')[0]),
             "IdLocatie": idLocatie,
