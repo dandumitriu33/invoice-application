@@ -1,2 +1,2 @@
 # invoice-application
-Practical assignment - invoice application - Setrio 
+Practical assignment - invoice application
